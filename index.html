@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "IntakeBot",
+      "url": "https://atalovesyou.github.io/intakebot/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "AI conversational client intake",
+      "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+      },
+      "publisher": {
+            "@type": "Organization",
+            "name": "OpenSphere Labs",
+            "url": "https://atalovesyou.github.io/opensphere-labs/"
+      }
+}
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IntakeBot — AI Client Intake That Talks Back</title>
@@ -41,6 +62,7 @@
             </div>
             <div class="flex items-center gap-6">
                 <a href="#demo" class="text-sm text-gray-400 hover:text-white transition">Demo</a>
+                <a href="widget-demo.html" class="text-sm text-gray-400 hover:text-white transition">Widget</a>
                 <a href="#templates" class="text-sm text-gray-400 hover:text-white transition">Templates</a>
                 <a href="#pricing" class="text-sm text-gray-400 hover:text-white transition">Pricing</a>
                 <button onclick="document.getElementById('waitlist-modal').classList.remove('hidden')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-lg text-sm font-medium transition">
@@ -220,6 +242,26 @@
                     </div>
                     <h3 class="text-lg font-semibold mb-2">3. Get structured data</h3>
                     <p class="text-gray-400 text-sm">Every conversation becomes structured JSON. Auto-sent to your email, CRM, or Slack. Book meetings instantly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Widget CTA -->
+    <section class="py-16 px-6">
+        <div class="max-w-3xl mx-auto text-center">
+            <div class="bg-gradient-to-br from-indigo-600/10 to-purple-600/10 border border-indigo-500/20 rounded-2xl p-10">
+                <span class="text-5xl mb-4 block">🔌</span>
+                <h2 class="text-2xl font-bold mb-3">One line of code. That's it.</h2>
+                <p class="text-gray-400 mb-6 max-w-lg mx-auto">See the embeddable widget running on a real page. Switch between templates. Experience what your clients will see.</p>
+                <a href="widget-demo.html" class="inline-block px-8 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-lg font-semibold transition shadow-lg shadow-indigo-600/25">
+                    Try the Widget Demo →
+                </a>
+                <div class="mt-6 bg-gray-900/80 rounded-xl p-4 text-left max-w-md mx-auto">
+                    <code class="text-sm text-gray-300">
+                        <span class="text-pink-400">&lt;script</span> <span class="text-sky-400">src</span>=<span class="text-green-400">"widget.js"</span><br>
+                        &nbsp;&nbsp;<span class="text-sky-400">data-template</span>=<span class="text-green-400">"law"</span><span class="text-pink-400">&gt;&lt;/script&gt;</span>
+                    </code>
                 </div>
             </div>
         </div>
@@ -766,5 +808,49 @@
     startDemo('law');
     updateCounter();
     </script>
+
+    <!-- Cross-Promotion: OpenSphere Labs -->
+    <section class="py-16 border-t border-white/5">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-10">
+                <p class="text-sm text-gray-500 uppercase tracking-widest mb-2">Also from</p>
+                <a href="https://atalovesyou.github.io/opensphere-labs/" target="_blank" class="text-xl font-bold text-white hover:text-indigo-400 transition">OpenSphere Labs</a>
+                <p class="text-gray-400 text-sm mt-2">AI-powered micro-tools for freelancers &amp; small businesses</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <a href="https://atalovesyou.github.io/unslop-ai/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
+                    <div class="text-lg mb-1">🧹 UnSlop.ai</div>
+                    <div class="text-xs text-gray-400 group-hover:text-gray-300">AI slop detector & humanizer</div>
+                </a>
+                <a href="https://atalovesyou.github.io/immigranttax-ai/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
+                    <div class="text-lg mb-1">🌍 ImmigrantTax.ai</div>
+                    <div class="text-xs text-gray-400 group-hover:text-gray-300">Cross-border tax for immigrants</div>
+                </a>
+                <a href="https://atalovesyou.github.io/ghosttracker/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
+                    <div class="text-lg mb-1">👻 GhostTracker</div>
+                    <div class="text-xs text-gray-400 group-hover:text-gray-300">Proposal analytics for freelancers</div>
+                </a>
+                <a href="https://atalovesyou.github.io/reviewagent/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
+                    <div class="text-lg mb-1">⭐ ReviewAgent</div>
+                    <div class="text-xs text-gray-400 group-hover:text-gray-300">AI review management for SMBs</div>
+                </a>
+                <a href="https://atalovesyou.github.io/nameforge/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
+                    <div class="text-lg mb-1">✨ NameForge</div>
+                    <div class="text-xs text-gray-400 group-hover:text-gray-300">AI business name generator</div>
+                </a>
+                <a href="https://atalovesyou.github.io/contractpilot/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
+                    <div class="text-lg mb-1">📝 ContractPilot</div>
+                    <div class="text-xs text-gray-400 group-hover:text-gray-300">AI contracts for freelancers</div>
+                </a>
+            </div>
+                <a href="https://atalovesyou.github.io/invoicepilot/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
+                    <div class="text-lg mb-1">💰 InvoicePilot</div>
+                    <div class="text-xs text-gray-400 group-hover:text-gray-300">AI invoicing for freelancers</div>
+                </a>
+            <div class="text-center mt-8">
+                <a href="https://atalovesyou.github.io/opensphere-labs/" target="_blank" class="text-sm text-indigo-400 hover:text-indigo-300 transition">View all products →</a>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

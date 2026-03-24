@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://atalovesyou.github.io/intakebot/sitemap.xml
