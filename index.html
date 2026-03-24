@@ -861,5 +861,59 @@
 
   <!-- Analytics (GoatCounter — privacy-friendly, no cookies) -->
   <script data-goatcounter="https://opensphere-labs.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+  <!-- Real Email Capture (Formsubmit.co — free, no backend) -->
+  <script>
+    // Intercept all waitlist form submissions and forward to Formsubmit.co
+    (function() {
+      const FORMSUBMIT_URL = 'https://formsubmit.co/ajax/atalashutosh@gmail.com';
+      const PRODUCT = 'intakebot';
+      
+      // Override any existing form submission to also send via Formsubmit
+      const origSubmit = window.submitWaitlist || window.handleWaitlist || window.joinWaitlist;
+      
+      function captureEmail(email) {
+        if (!email || !email.includes('@')) return;
+        
+        // Send to Formsubmit.co via AJAX (no redirect)
+        fetch(FORMSUBMIT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            email: email,
+            product: PRODUCT,
+            source: 'waitlist',
+            timestamp: new Date().toISOString(),
+            _subject: PRODUCT + ' Waitlist Signup: ' + email,
+            _template: 'table'
+          })
+        }).catch(function() {});
+      }
+      
+      // Watch for form submissions on any email input
+      document.addEventListener('submit', function(e) {
+        const form = e.target;
+        const emailInput = form.querySelector('input[type="email"]');
+        if (emailInput && emailInput.value) {
+          captureEmail(emailInput.value);
+        }
+      });
+      
+      // Also intercept programmatic submissions
+      document.addEventListener('click', function(e) {
+        const btn = e.target;
+        if (btn.textContent && btn.textContent.includes('Waitlist')) {
+          setTimeout(function() {
+            const inputs = document.querySelectorAll('input[type="email"]');
+            inputs.forEach(function(input) {
+              if (input.value && input.value.includes('@')) {
+                captureEmail(input.value);
+              }
+            });
+          }, 100);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
