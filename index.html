@@ -9,7 +9,7 @@
       "url": "https://atalovesyou.github.io/intakebot/",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
-      "description": "AI conversational client intake",
+      "description": "AI conversational client intake — replace static forms with adaptive chat that qualifies clients, extracts structured data, and books meetings automatically.",
       "offers": {
             "@type": "Offer",
             "price": "0",
@@ -20,23 +20,23 @@
             "name": "OpenSphere Labs",
             "url": "https://atalovesyou.github.io/opensphere-labs/"
       }
-}
+    }
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IntakeBot — AI Client Intake That Talks Back</title>
-    <meta name="description" content="Replace boring forms with conversational AI intake. 10x cheaper than Lawmatics. Free to start.">
+    <meta name="description" content="Replace boring forms with conversational AI intake. Build adaptive intake bots in minutes. 10x cheaper than Lawmatics. Free to start.">
     <meta property="og:title" content="IntakeBot — AI Client Intake That Talks Back">
     <meta property="og:description" content="Conversational AI intake for freelancers, law firms, and small businesses. $0 to start.">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://atalovesyou.github.io/intakebot/">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
         body { font-family: 'Inter', sans-serif; }
         .gradient-text { background: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .gradient-border { border-image: linear-gradient(135deg, #6366f1, #8b5cf6) 1; }
         .chat-bubble-left { border-radius: 2px 18px 18px 18px; }
         .chat-bubble-right { border-radius: 18px 2px 18px 18px; }
         .pulse-dot { animation: pulse 2s infinite; }
@@ -49,808 +49,1347 @@
         @keyframes blink { 0%, 80%, 100% { opacity: 0.2; } 40% { opacity: 1; } }
         .card-hover { transition: all 0.3s ease; }
         .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15); }
+        .glass { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
+        .tab-active { background: #4f46e5 !important; color: white !important; }
+        .score-bar { transition: width 0.8s ease; }
+        .ring-pulse { animation: ringPulse 2s ease-out infinite; }
+        @keyframes ringPulse { 0% { box-shadow: 0 0 0 0 rgba(99,102,241,0.4); } 70% { box-shadow: 0 0 0 10px rgba(99,102,241,0); } 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0); } }
+        .slide-up { animation: slideUp 0.3s ease-out; }
+        @keyframes slideUp { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
     </style>
 </head>
 <body class="bg-gray-950 text-white">
 
-    <!-- Nav -->
-    <nav class="fixed top-0 w-full bg-gray-950/80 backdrop-blur-xl z-50 border-b border-gray-800/50">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <span class="text-2xl">🤖</span>
-                <span class="text-xl font-bold">IntakeBot</span>
-            </div>
-            <div class="flex items-center gap-6">
-                <a href="#demo" class="text-sm text-gray-400 hover:text-white transition">Demo</a>
-                <a href="widget-demo.html" class="text-sm text-gray-400 hover:text-white transition">Widget</a>
-                <a href="#templates" class="text-sm text-gray-400 hover:text-white transition">Templates</a>
-                <a href="#pricing" class="text-sm text-gray-400 hover:text-white transition">Pricing</a>
-                <button onclick="document.getElementById('waitlist-modal').classList.remove('hidden')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-lg text-sm font-medium transition">
-                    Join Waitlist
-                </button>
-            </div>
+<!-- Nav -->
+<nav class="fixed top-0 w-full bg-gray-950/80 backdrop-blur-xl z-50 border-b border-gray-800/50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+            <span class="text-2xl">🤖</span>
+            <span class="text-xl font-bold">IntakeBot</span>
+            <span class="text-xs bg-indigo-600/20 text-indigo-400 px-2 py-0.5 rounded-full ml-2">v2.0</span>
         </div>
-    </nav>
-
-    <!-- Hero -->
-    <section class="pt-32 pb-20 px-6">
-        <div class="max-w-4xl mx-auto text-center">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-indigo-400 text-sm mb-8">
-                <span class="pulse-dot w-2 h-2 bg-indigo-400 rounded-full"></span>
-                Launching soon — join the waitlist
-            </div>
-            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
-                Your intake form<br>should <span class="gradient-text">talk back</span>
-            </h1>
-            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10">
-                Replace static forms with conversational AI that qualifies clients, adapts to their answers, and sends you structured data. Free to start. 10x cheaper than Lawmatics.
-            </p>
-            <div class="flex items-center justify-center gap-4">
-                <button onclick="document.getElementById('waitlist-modal').classList.remove('hidden')" class="px-8 py-3.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-lg font-semibold transition shadow-lg shadow-indigo-600/25">
-                    Get Early Access →
-                </button>
-                <a href="#demo" class="px-8 py-3.5 border border-gray-700 hover:border-gray-500 rounded-xl text-lg font-medium transition">
-                    See it work
-                </a>
-            </div>
-            <p class="text-sm text-gray-500 mt-4">No credit card needed · Free tier forever</p>
-        </div>
-    </section>
-
-    <!-- Before/After -->
-    <section class="py-16 px-6">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-4">Forms are dead. Conversations convert.</h2>
-            <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">67% of people abandon long forms. Nobody abandons a conversation.</p>
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Before -->
-                <div class="bg-gray-900/50 border border-gray-800 rounded-2xl p-6">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="text-red-400 text-lg">❌</span>
-                        <span class="text-lg font-semibold text-red-400">Traditional Form</span>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="bg-gray-800/50 rounded-lg p-3">
-                            <label class="text-xs text-gray-500 block mb-1">Full Name *</label>
-                            <div class="h-8 bg-gray-700/50 rounded border border-gray-600"></div>
-                        </div>
-                        <div class="bg-gray-800/50 rounded-lg p-3">
-                            <label class="text-xs text-gray-500 block mb-1">Email *</label>
-                            <div class="h-8 bg-gray-700/50 rounded border border-gray-600"></div>
-                        </div>
-                        <div class="bg-gray-800/50 rounded-lg p-3">
-                            <label class="text-xs text-gray-500 block mb-1">Describe your legal issue *</label>
-                            <div class="h-20 bg-gray-700/50 rounded border border-gray-600"></div>
-                        </div>
-                        <div class="bg-gray-800/50 rounded-lg p-3">
-                            <label class="text-xs text-gray-500 block mb-1">Budget range *</label>
-                            <div class="h-8 bg-gray-700/50 rounded border border-gray-600"></div>
-                        </div>
-                        <div class="bg-gray-800/50 rounded-lg p-3">
-                            <label class="text-xs text-gray-500 block mb-1">How did you hear about us? *</label>
-                            <div class="h-8 bg-gray-700/50 rounded border border-gray-600"></div>
-                        </div>
-                        <div class="text-center pt-2">
-                            <span class="text-sm text-red-400/80">⚠️ 67% abandonment rate</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- After -->
-                <div class="bg-gray-900/50 border border-indigo-500/30 rounded-2xl p-6 shadow-lg shadow-indigo-500/5">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="text-green-400 text-lg">✅</span>
-                        <span class="text-lg font-semibold text-green-400">IntakeBot</span>
-                    </div>
-                    <div class="space-y-3" id="demo-chat-static">
-                        <div class="flex justify-start">
-                            <div class="chat-bubble-left bg-indigo-600/20 border border-indigo-500/20 px-4 py-2.5 max-w-[80%]">
-                                <p class="text-sm">Hi! I'm the intake assistant for Smith & Associates. What brings you in today? 😊</p>
-                            </div>
-                        </div>
-                        <div class="flex justify-end">
-                            <div class="chat-bubble-right bg-gray-700/50 px-4 py-2.5 max-w-[80%]">
-                                <p class="text-sm">I need help with an employment dispute. My employer owes me back wages.</p>
-                            </div>
-                        </div>
-                        <div class="flex justify-start">
-                            <div class="chat-bubble-left bg-indigo-600/20 border border-indigo-500/20 px-4 py-2.5 max-w-[80%]">
-                                <p class="text-sm">I'm sorry to hear that. A few quick questions to help us prepare — how long have you worked there, and roughly how much are you owed?</p>
-                            </div>
-                        </div>
-                        <div class="flex justify-end">
-                            <div class="chat-bubble-right bg-gray-700/50 px-4 py-2.5 max-w-[80%]">
-                                <p class="text-sm">3 years, about $12,000</p>
-                            </div>
-                        </div>
-                        <div class="flex justify-start">
-                            <div class="chat-bubble-left bg-indigo-600/20 border border-indigo-500/20 px-4 py-2.5 max-w-[80%]">
-                                <p class="text-sm">Got it. That's significant — you likely have a strong case. Let me book you a free 15-min consult with Sarah, our employment attorney. What day works best? 📅</p>
-                            </div>
-                        </div>
-                        <div class="text-center pt-2">
-                            <span class="text-sm text-green-400/80">✨ 94% completion rate</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Live Demo -->
-    <section id="demo" class="py-20 px-6 bg-gray-900/30">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-4">Try it yourself</h2>
-            <p class="text-gray-400 text-center mb-10">This is what your clients will see. Pick a template and start chatting.</p>
-            
-            <!-- Template Selector -->
-            <div class="flex justify-center gap-3 mb-8 flex-wrap">
-                <button onclick="startDemo('law')" class="demo-tab px-4 py-2 rounded-lg text-sm font-medium bg-indigo-600 text-white transition" data-tab="law">⚖️ Law Firm</button>
-                <button onclick="startDemo('freelance')" class="demo-tab px-4 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 transition" data-tab="freelance">💻 Freelancer</button>
-                <button onclick="startDemo('agency')" class="demo-tab px-4 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 transition" data-tab="agency">🏢 Agency</button>
-                <button onclick="startDemo('coaching')" class="demo-tab px-4 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 transition" data-tab="coaching">🧠 Coach</button>
-            </div>
-
-            <!-- Chat Window -->
-            <div class="bg-gray-950 border border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
-                <div class="bg-gray-900 px-6 py-3 border-b border-gray-800 flex items-center gap-3">
-                    <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
-                    <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
-                    <div class="w-3 h-3 rounded-full bg-green-500/60"></div>
-                    <span class="text-sm text-gray-400 ml-2" id="demo-title">Smith & Associates — Client Intake</span>
-                </div>
-                <div class="h-96 overflow-y-auto p-6 space-y-3" id="demo-messages">
-                    <!-- Messages injected by JS -->
-                </div>
-                <div class="border-t border-gray-800 px-6 py-4">
-                    <div class="flex gap-3">
-                        <input type="text" id="demo-input" placeholder="Type a response..." 
-                            class="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition"
-                            onkeydown="if(event.key==='Enter')sendDemoMessage()">
-                        <button onclick="sendDemoMessage()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-sm font-medium transition">
-                            Send
-                        </button>
-                    </div>
-                    <div class="flex gap-2 mt-3" id="quick-replies"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="py-20 px-6">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-4">Three steps to better intake</h2>
-            <p class="text-gray-400 text-center mb-16">Set up in 5 minutes. No coding required.</p>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-indigo-600/10 border border-indigo-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <span class="text-3xl">📝</span>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">1. Pick a template</h3>
-                    <p class="text-gray-400 text-sm">Choose from law, freelance, agency, coaching, therapy, or build your own. Customize the questions and tone.</p>
-                </div>
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-indigo-600/10 border border-indigo-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <span class="text-3xl">🔗</span>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">2. Embed or share</h3>
-                    <p class="text-gray-400 text-sm">Drop a widget on your website with one line of code, or share a direct link. Works on any platform.</p>
-                </div>
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-indigo-600/10 border border-indigo-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <span class="text-3xl">📊</span>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">3. Get structured data</h3>
-                    <p class="text-gray-400 text-sm">Every conversation becomes structured JSON. Auto-sent to your email, CRM, or Slack. Book meetings instantly.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Widget CTA -->
-    <section class="py-16 px-6">
-        <div class="max-w-3xl mx-auto text-center">
-            <div class="bg-gradient-to-br from-indigo-600/10 to-purple-600/10 border border-indigo-500/20 rounded-2xl p-10">
-                <span class="text-5xl mb-4 block">🔌</span>
-                <h2 class="text-2xl font-bold mb-3">One line of code. That's it.</h2>
-                <p class="text-gray-400 mb-6 max-w-lg mx-auto">See the embeddable widget running on a real page. Switch between templates. Experience what your clients will see.</p>
-                <a href="widget-demo.html" class="inline-block px-8 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-lg font-semibold transition shadow-lg shadow-indigo-600/25">
-                    Try the Widget Demo →
-                </a>
-                <div class="mt-6 bg-gray-900/80 rounded-xl p-4 text-left max-w-md mx-auto">
-                    <code class="text-sm text-gray-300">
-                        <span class="text-pink-400">&lt;script</span> <span class="text-sky-400">src</span>=<span class="text-green-400">"widget.js"</span><br>
-                        &nbsp;&nbsp;<span class="text-sky-400">data-template</span>=<span class="text-green-400">"law"</span><span class="text-pink-400">&gt;&lt;/script&gt;</span>
-                    </code>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Templates -->
-    <section id="templates" class="py-20 px-6 bg-gray-900/30">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-4">Templates for every business</h2>
-            <p class="text-gray-400 text-center mb-12">Pre-built intake flows you can customize in minutes.</p>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="card-hover bg-gray-900/80 border border-gray-800 rounded-xl p-6">
-                    <span class="text-3xl mb-3 block">⚖️</span>
-                    <h3 class="text-lg font-semibold mb-2">Law Firm</h3>
-                    <p class="text-gray-400 text-sm mb-3">Qualify cases, check conflicts, book consultations. Trauma-informed language built in.</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Immigration</span>
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Employment</span>
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Family</span>
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">PI</span>
-                    </div>
-                </div>
-                <div class="card-hover bg-gray-900/80 border border-gray-800 rounded-xl p-6">
-                    <span class="text-3xl mb-3 block">💻</span>
-                    <h3 class="text-lg font-semibold mb-2">Freelancer</h3>
-                    <p class="text-gray-400 text-sm mb-3">Scope projects, qualify budgets, collect briefs. Stop wasting time on bad-fit clients.</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Design</span>
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Development</span>
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Writing</span>
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Consulting</span>
-                    </div>
-                </div>
-                <div class="card-hover bg-gray-900/80 border border-gray-800 rounded-xl p-6">
-                    <span class="text-3xl mb-3 block">🏢</span>
-                    <h3 class="text-lg font-semibold mb-2">Agency</h3>
-                    <p class="text-gray-400 text-sm mb-3">Multi-service intake with smart routing. Qualify leads and assign to the right team.</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Marketing</span>
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Creative</span>
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">PR</span>
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Branding</span>
-                    </div>
-                </div>
-                <div class="card-hover bg-gray-900/80 border border-gray-800 rounded-xl p-6">
-                    <span class="text-3xl mb-3 block">🧠</span>
-                    <h3 class="text-lg font-semibold mb-2">Coaching</h3>
-                    <p class="text-gray-400 text-sm mb-3">Assess goals, readiness, and fit. Pre-qualify coachees before discovery calls.</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Life</span>
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Business</span>
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Career</span>
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Executive</span>
-                    </div>
-                </div>
-                <div class="card-hover bg-gray-900/80 border border-gray-800 rounded-xl p-6">
-                    <span class="text-3xl mb-3 block">💆</span>
-                    <h3 class="text-lg font-semibold mb-2">Therapy / Health</h3>
-                    <p class="text-gray-400 text-sm mb-3">Sensitive intake with empathetic tone. Collect insurance info, presenting concerns.</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Mental Health</span>
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Wellness</span>
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Medspa</span>
-                    </div>
-                </div>
-                <div class="card-hover bg-gray-900/80 border border-gray-800 rounded-xl p-6">
-                    <span class="text-3xl mb-3 block">🔧</span>
-                    <h3 class="text-lg font-semibold mb-2">Custom</h3>
-                    <p class="text-gray-400 text-sm mb-3">Build your own from scratch. Define questions, logic, tone, and output format.</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">Any industry</span>
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">No-code</span>
-                        <span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-xs">API</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features -->
-    <section class="py-20 px-6">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-12">Everything you need. Nothing you don't.</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="flex gap-4 p-5 bg-gray-900/50 border border-gray-800 rounded-xl">
-                    <span class="text-2xl">🧠</span>
-                    <div>
-                        <h3 class="font-semibold mb-1">AI-Adaptive Questions</h3>
-                        <p class="text-sm text-gray-400">Skips irrelevant questions, digs deeper when needed. No two conversations are the same.</p>
-                    </div>
-                </div>
-                <div class="flex gap-4 p-5 bg-gray-900/50 border border-gray-800 rounded-xl">
-                    <span class="text-2xl">🌍</span>
-                    <div>
-                        <h3 class="font-semibold mb-1">Multilingual</h3>
-                        <p class="text-sm text-gray-400">Auto-detects language and responds in kind. Spanish, French, Mandarin, Hindi — 50+ languages.</p>
-                    </div>
-                </div>
-                <div class="flex gap-4 p-5 bg-gray-900/50 border border-gray-800 rounded-xl">
-                    <span class="text-2xl">📊</span>
-                    <div>
-                        <h3 class="font-semibold mb-1">Structured Output</h3>
-                        <p class="text-sm text-gray-400">Every conversation auto-extracts to JSON/CSV. Ready for your CRM, contracts, or invoices.</p>
-                    </div>
-                </div>
-                <div class="flex gap-4 p-5 bg-gray-900/50 border border-gray-800 rounded-xl">
-                    <span class="text-2xl">📅</span>
-                    <div>
-                        <h3 class="font-semibold mb-1">Auto-Booking</h3>
-                        <p class="text-sm text-gray-400">Qualified leads get a calendar link automatically. Integrates with Cal.com, Calendly, Google Calendar.</p>
-                    </div>
-                </div>
-                <div class="flex gap-4 p-5 bg-gray-900/50 border border-gray-800 rounded-xl">
-                    <span class="text-2xl">🔗</span>
-                    <div>
-                        <h3 class="font-semibold mb-1">Webhooks & Zapier</h3>
-                        <p class="text-sm text-gray-400">Send intake data anywhere — Slack, email, CRM, Notion, Airtable. One webhook, infinite workflows.</p>
-                    </div>
-                </div>
-                <div class="flex gap-4 p-5 bg-gray-900/50 border border-gray-800 rounded-xl">
-                    <span class="text-2xl">🎨</span>
-                    <div>
-                        <h3 class="font-semibold mb-1">Custom Branding</h3>
-                        <p class="text-sm text-gray-400">Match your brand colors, logo, and tone of voice. Clients never know it's a bot (unless you want them to).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Comparison -->
-    <section class="py-20 px-6 bg-gray-900/30">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-4">The $400/mo question</h2>
-            <p class="text-gray-400 text-center mb-12">Why pay enterprise prices for a simple intake form?</p>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left">
-                    <thead>
-                        <tr class="border-b border-gray-800">
-                            <th class="py-4 pr-4 text-sm font-semibold text-gray-400">Feature</th>
-                            <th class="py-4 px-4 text-sm font-semibold text-center">
-                                <span class="text-indigo-400">IntakeBot</span><br>
-                                <span class="text-xs text-gray-500">$0-19/mo</span>
-                            </th>
-                            <th class="py-4 px-4 text-sm font-semibold text-center">
-                                Lawmatics<br>
-                                <span class="text-xs text-gray-500">$199-399/mo</span>
-                            </th>
-                            <th class="py-4 px-4 text-sm font-semibold text-center">
-                                Smith.ai<br>
-                                <span class="text-xs text-gray-500">$300-800/mo</span>
-                            </th>
-                            <th class="py-4 px-4 text-sm font-semibold text-center">
-                                Google Forms<br>
-                                <span class="text-xs text-gray-500">Free</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm">
-                        <tr class="border-b border-gray-800/50">
-                            <td class="py-3 pr-4">Conversational AI</td>
-                            <td class="py-3 px-4 text-center text-green-400">✅</td>
-                            <td class="py-3 px-4 text-center text-yellow-400">⚠️</td>
-                            <td class="py-3 px-4 text-center text-green-400">✅</td>
-                            <td class="py-3 px-4 text-center text-red-400">❌</td>
-                        </tr>
-                        <tr class="border-b border-gray-800/50">
-                            <td class="py-3 pr-4">Adaptive follow-ups</td>
-                            <td class="py-3 px-4 text-center text-green-400">✅</td>
-                            <td class="py-3 px-4 text-center text-yellow-400">⚠️</td>
-                            <td class="py-3 px-4 text-center text-green-400">✅</td>
-                            <td class="py-3 px-4 text-center text-red-400">❌</td>
-                        </tr>
-                        <tr class="border-b border-gray-800/50">
-                            <td class="py-3 pr-4">Multilingual</td>
-                            <td class="py-3 px-4 text-center text-green-400">✅ 50+</td>
-                            <td class="py-3 px-4 text-center text-red-400">❌</td>
-                            <td class="py-3 px-4 text-center text-yellow-400">⚠️ Limited</td>
-                            <td class="py-3 px-4 text-center text-red-400">❌</td>
-                        </tr>
-                        <tr class="border-b border-gray-800/50">
-                            <td class="py-3 pr-4">Embeddable widget</td>
-                            <td class="py-3 px-4 text-center text-green-400">✅</td>
-                            <td class="py-3 px-4 text-center text-green-400">✅</td>
-                            <td class="py-3 px-4 text-center text-green-400">✅</td>
-                            <td class="py-3 px-4 text-center text-yellow-400">⚠️ Ugly</td>
-                        </tr>
-                        <tr class="border-b border-gray-800/50">
-                            <td class="py-3 pr-4">Structured data output</td>
-                            <td class="py-3 px-4 text-center text-green-400">✅ JSON</td>
-                            <td class="py-3 px-4 text-center text-green-400">✅</td>
-                            <td class="py-3 px-4 text-center text-yellow-400">⚠️ Email</td>
-                            <td class="py-3 px-4 text-center text-yellow-400">⚠️ Sheets</td>
-                        </tr>
-                        <tr class="border-b border-gray-800/50">
-                            <td class="py-3 pr-4">Free tier</td>
-                            <td class="py-3 px-4 text-center text-green-400">✅ 10/mo</td>
-                            <td class="py-3 px-4 text-center text-red-400">❌</td>
-                            <td class="py-3 px-4 text-center text-red-400">❌</td>
-                            <td class="py-3 px-4 text-center text-green-400">✅</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 pr-4 font-semibold">Price for 100 intakes/mo</td>
-                            <td class="py-3 px-4 text-center text-green-400 font-bold">$9/mo</td>
-                            <td class="py-3 px-4 text-center text-red-400 font-bold">$199/mo</td>
-                            <td class="py-3 px-4 text-center text-red-400 font-bold">$500+/mo</td>
-                            <td class="py-3 px-4 text-center text-gray-400">Free (no AI)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing -->
-    <section id="pricing" class="py-20 px-6">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-4">Simple pricing. No surprises.</h2>
-            <p class="text-gray-400 text-center mb-12">Start free. Upgrade when you're ready.</p>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="card-hover bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
-                    <h3 class="text-lg font-semibold mb-1">Free</h3>
-                    <div class="flex items-baseline gap-1 mb-4">
-                        <span class="text-4xl font-bold">$0</span>
-                        <span class="text-gray-500">/forever</span>
-                    </div>
-                    <ul class="space-y-2.5 text-sm text-gray-400 mb-8">
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 10 intakes/month</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 1 intake bot</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Conversational AI</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Email summaries</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Shareable link</li>
-                    </ul>
-                    <button onclick="document.getElementById('waitlist-modal').classList.remove('hidden')" class="w-full py-2.5 border border-gray-700 hover:border-gray-500 rounded-xl text-sm font-medium transition">
-                        Join Waitlist
-                    </button>
-                </div>
-                <div class="card-hover bg-gray-900/50 border-2 border-indigo-500 rounded-2xl p-8 relative">
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-indigo-600 rounded-full text-xs font-medium">Most Popular</div>
-                    <h3 class="text-lg font-semibold mb-1">Pro</h3>
-                    <div class="flex items-baseline gap-1 mb-4">
-                        <span class="text-4xl font-bold">$9</span>
-                        <span class="text-gray-500">/month</span>
-                    </div>
-                    <ul class="space-y-2.5 text-sm text-gray-400 mb-8">
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 100 intakes/month</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 5 intake bots</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Custom branding</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Webhooks & Zapier</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Multilingual (50+)</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Embeddable widget</li>
-                    </ul>
-                    <button onclick="document.getElementById('waitlist-modal').classList.remove('hidden')" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-sm font-medium transition">
-                        Join Waitlist
-                    </button>
-                </div>
-                <div class="card-hover bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
-                    <h3 class="text-lg font-semibold mb-1">Business</h3>
-                    <div class="flex items-baseline gap-1 mb-4">
-                        <span class="text-4xl font-bold">$19</span>
-                        <span class="text-gray-500">/month</span>
-                    </div>
-                    <ul class="space-y-2.5 text-sm text-gray-400 mb-8">
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 500 intakes/month</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Unlimited bots</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> API access</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Team seats</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Priority AI</li>
-                        <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Analytics dashboard</li>
-                    </ul>
-                    <button onclick="document.getElementById('waitlist-modal').classList.remove('hidden')" class="w-full py-2.5 border border-gray-700 hover:border-gray-500 rounded-xl text-sm font-medium transition">
-                        Join Waitlist
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="py-20 px-6 bg-gray-900/30">
-        <div class="max-w-3xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-4">Stop losing clients to boring forms</h2>
-            <p class="text-gray-400 text-lg mb-8">Join 200+ businesses already on the waitlist. Be first when we launch.</p>
-            <button onclick="document.getElementById('waitlist-modal').classList.remove('hidden')" class="px-10 py-4 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-lg font-semibold transition shadow-lg shadow-indigo-600/25">
-                Get Early Access — It's Free →
+        <div class="flex items-center gap-6">
+            <a href="#builder" class="text-sm text-gray-400 hover:text-white transition">Builder</a>
+            <a href="#demo" class="text-sm text-gray-400 hover:text-white transition">Try It</a>
+            <a href="#dashboard" class="text-sm text-gray-400 hover:text-white transition">Dashboard</a>
+            <a href="widget-demo.html" class="text-sm text-gray-400 hover:text-white transition">Widget</a>
+            <a href="#pricing" class="text-sm text-gray-400 hover:text-white transition">Pricing</a>
+            <button onclick="document.getElementById('waitlist-modal').classList.remove('hidden')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-lg text-sm font-medium transition">
+                Join Waitlist
             </button>
         </div>
-    </section>
+    </div>
+</nav>
 
-    <!-- Footer -->
-    <footer class="py-8 px-6 border-t border-gray-800">
-        <div class="max-w-6xl mx-auto flex items-center justify-between text-sm text-gray-500">
-            <div class="flex items-center gap-2">
-                <span>🤖</span>
-                <span>IntakeBot</span>
-                <span>·</span>
-                <span>by <a href="https://opensphere.ai" class="text-gray-400 hover:text-white transition">OpenSphere</a></span>
-            </div>
-            <span>© 2026</span>
+<!-- Hero -->
+<section class="pt-32 pb-20 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-indigo-400 text-sm mb-8">
+            <span class="pulse-dot w-2 h-2 bg-indigo-400 rounded-full"></span>
+            v2.0 — Now with bot builder, analytics & structured extraction
         </div>
-    </footer>
+        <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+            Your intake form<br>should <span class="gradient-text">talk back</span>
+        </h1>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10">
+            Build adaptive AI intake bots in minutes. Deep conversation trees, structured data extraction, completion analytics, and intake history — all client-side. 10x cheaper than Lawmatics.
+        </p>
+        <div class="flex items-center justify-center gap-4">
+            <a href="#builder" class="px-8 py-3.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-lg font-semibold transition shadow-lg shadow-indigo-600/25">
+                Build Your Bot →
+            </a>
+            <a href="#demo" class="px-8 py-3.5 border border-gray-700 hover:border-gray-500 rounded-xl text-lg font-medium transition">
+                Try a demo
+            </a>
+        </div>
+        <p class="text-sm text-gray-500 mt-4">No credit card · No backend needed · 100% client-side</p>
+    </div>
+</section>
 
-    <!-- Waitlist Modal -->
-    <div id="waitlist-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onclick="if(event.target===this)this.classList.add('hidden')">
-        <div class="bg-gray-900 border border-gray-700 rounded-2xl p-8 max-w-md w-full">
-            <h3 class="text-2xl font-bold mb-2">Join the waitlist</h3>
-            <p class="text-gray-400 text-sm mb-6">Be first to try IntakeBot. We'll notify you when it's ready.</p>
-            <form onsubmit="submitWaitlist(event)">
-                <input type="email" id="waitlist-email" placeholder="you@company.com" required
-                    class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 mb-3 text-sm focus:outline-none focus:border-indigo-500">
-                <select id="waitlist-type" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 mb-4 text-sm text-gray-400 focus:outline-none focus:border-indigo-500">
-                    <option value="">What type of business?</option>
-                    <option value="law">Law Firm</option>
-                    <option value="freelance">Freelancer / Consultant</option>
-                    <option value="agency">Agency</option>
-                    <option value="coaching">Coach / Therapist</option>
-                    <option value="saas">SaaS / Tech</option>
-                    <option value="other">Other</option>
-                </select>
-                <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl font-semibold transition">
-                    Get Early Access
-                </button>
-            </form>
-            <div id="waitlist-success" class="hidden text-center py-6">
-                <span class="text-4xl mb-3 block">🎉</span>
-                <p class="text-lg font-semibold mb-1">You're on the list!</p>
-                <p class="text-sm text-gray-400">We'll email you when IntakeBot is ready.</p>
+<!-- Before/After -->
+<section class="py-16 px-6">
+    <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-4">Forms are dead. Conversations convert.</h2>
+        <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">67% of people abandon long forms. Nobody abandons a conversation.</p>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-gray-900/50 border border-gray-800 rounded-2xl p-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="text-red-400 text-lg">❌</span>
+                    <span class="text-lg font-semibold text-red-400">Traditional Form</span>
+                </div>
+                <div class="space-y-3">
+                    <div class="bg-gray-800/50 rounded-lg p-3">
+                        <label class="text-xs text-gray-500 block mb-1">Full Name *</label>
+                        <div class="h-8 bg-gray-700/50 rounded border border-gray-600"></div>
+                    </div>
+                    <div class="bg-gray-800/50 rounded-lg p-3">
+                        <label class="text-xs text-gray-500 block mb-1">Email *</label>
+                        <div class="h-8 bg-gray-700/50 rounded border border-gray-600"></div>
+                    </div>
+                    <div class="bg-gray-800/50 rounded-lg p-3">
+                        <label class="text-xs text-gray-500 block mb-1">Describe your issue *</label>
+                        <div class="h-20 bg-gray-700/50 rounded border border-gray-600"></div>
+                    </div>
+                    <div class="bg-gray-800/50 rounded-lg p-3">
+                        <label class="text-xs text-gray-500 block mb-1">Budget range *</label>
+                        <div class="h-8 bg-gray-700/50 rounded border border-gray-600"></div>
+                    </div>
+                    <div class="text-center pt-2">
+                        <span class="text-sm text-red-400/80">⚠️ 67% abandonment rate</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-900/50 border border-indigo-500/30 rounded-2xl p-6 shadow-lg shadow-indigo-500/5">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="text-green-400 text-lg">✅</span>
+                    <span class="text-lg font-semibold text-green-400">IntakeBot</span>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-start"><div class="chat-bubble-left bg-indigo-600/20 border border-indigo-500/20 px-4 py-2.5 max-w-[80%]"><p class="text-sm">Hi! I'm the intake assistant for Smith & Associates. What brings you in today? 😊</p></div></div>
+                    <div class="flex justify-end"><div class="chat-bubble-right bg-gray-700/50 px-4 py-2.5 max-w-[80%]"><p class="text-sm">I need help with an employment dispute. My employer owes me back wages.</p></div></div>
+                    <div class="flex justify-start"><div class="chat-bubble-left bg-indigo-600/20 border border-indigo-500/20 px-4 py-2.5 max-w-[80%]"><p class="text-sm">I'm sorry to hear that. How long have you worked there, and roughly how much are you owed?</p></div></div>
+                    <div class="flex justify-end"><div class="chat-bubble-right bg-gray-700/50 px-4 py-2.5 max-w-[80%]"><p class="text-sm">3 years, about $12,000</p></div></div>
+                    <div class="flex justify-start"><div class="chat-bubble-left bg-indigo-600/20 border border-indigo-500/20 px-4 py-2.5 max-w-[80%]"><p class="text-sm">That's significant — you likely have a strong case. Let me book you a free 15-min consult. What day works? 📅</p></div></div>
+                    <div class="text-center pt-2"><span class="text-sm text-green-400/80">✨ 94% completion rate</span></div>
+                </div>
             </div>
         </div>
     </div>
+</section>
 
-    <script>
-    // Demo conversation flows
-    const flows = {
-        law: {
-            title: "Smith & Associates — Client Intake",
-            messages: [
-                { from: 'bot', text: "Hi! Welcome to Smith & Associates. I'm here to help you get started. What type of legal matter can we help with today?" },
-            ],
-            quickReplies: ["Employment dispute", "Immigration case", "Personal injury", "Something else"],
-            responses: {
-                "Employment dispute": [
-                    { from: 'bot', text: "I'm sorry you're dealing with a workplace issue. Can you tell me briefly what happened? For example: wrongful termination, unpaid wages, harassment, or discrimination?" },
-                ],
-                "Immigration case": [
-                    { from: 'bot', text: "We handle many immigration matters. What do you need help with — visa applications, green card, deportation defense, or citizenship?" },
-                ],
-                "Personal injury": [
-                    { from: 'bot', text: "I'm sorry you were hurt. When did the injury occur, and have you received medical treatment?" },
-                ],
-                "Something else": [
-                    { from: 'bot', text: "No problem! Can you describe your situation in a sentence or two? I'll make sure you get connected with the right attorney." },
-                ],
-                "_default": [
-                    { from: 'bot', text: "Thanks for sharing that. A few quick questions to match you with the right attorney:" },
-                    { from: 'bot', text: "1. Is this matter urgent (court date or deadline coming up)?\n2. Have you consulted another attorney about this?\n3. What's your general budget range for legal help?" },
-                ]
-            }
-        },
-        freelance: {
-            title: "Jane Design Co — Project Inquiry",
-            messages: [
-                { from: 'bot', text: "Hey there! 👋 Thanks for reaching out to Jane Design Co. I'd love to learn about your project. What are you looking for — brand design, web design, or something else?" },
-            ],
-            quickReplies: ["Brand identity", "Website redesign", "App UI/UX", "Not sure yet"],
-            responses: {
-                "Brand identity": [
-                    { from: 'bot', text: "Love it! Brand projects are my favorite. Do you have any existing brand assets (logo, colors, guidelines), or are we starting from scratch?" },
-                ],
-                "Website redesign": [
-                    { from: 'bot', text: "Great! What's the URL of your current site? And what's the main thing you want to improve — look & feel, conversions, or mobile experience?" },
-                ],
-                "_default": [
-                    { from: 'bot', text: "Sounds interesting! To give you an accurate estimate, I need a few more details:" },
-                    { from: 'bot', text: "• What's your timeline? (ASAP / 1-2 months / flexible)\n• Budget range? ($1-5K / $5-15K / $15K+)\n• Any examples of designs you love?" },
-                ]
-            }
-        },
-        agency: {
-            title: "Acme Agency — New Client Inquiry",
-            messages: [
-                { from: 'bot', text: "Welcome to Acme Agency! We're a full-service digital agency. What can we help you with — marketing, development, content, or strategy?" },
-            ],
-            quickReplies: ["Paid ads / PPC", "SEO & content", "Web development", "Full strategy"],
-            responses: {
-                "_default": [
-                    { from: 'bot', text: "Great choice. To match you with the right team lead, a couple quick questions:" },
-                    { from: 'bot', text: "• What's your monthly marketing budget?\n• Any campaigns currently running?\n• What does success look like in 90 days?" },
-                ]
-            }
-        },
-        coaching: {
-            title: "Peak Performance Coaching — Discovery",
-            messages: [
-                { from: 'bot', text: "Hi! Welcome to Peak Performance Coaching. I'm here to help you figure out if coaching is right for you. What's your biggest challenge right now?" },
-            ],
-            quickReplies: ["Career transition", "Leadership growth", "Work-life balance", "Starting a business"],
-            responses: {
-                "_default": [
-                    { from: 'bot', text: "I hear you — that's a common but important challenge. A few things that help me match you with the right coach:" },
-                    { from: 'bot', text: "• Have you worked with a coach before?\n• What would a breakthrough look like for you in the next 3 months?\n• How many hours per week can you commit to this?" },
-                ]
-            }
-        }
-    };
+<!-- Bot Builder -->
+<section id="builder" class="py-20 px-6 bg-gray-900/30">
+    <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-4">Build your intake bot</h2>
+        <p class="text-gray-400 text-center mb-12">Configure your bot, preview the conversation, and deploy — no code needed.</p>
 
-    let currentFlow = 'law';
-    let messageCount = 0;
+        <div class="grid lg:grid-cols-2 gap-8">
+            <!-- Builder Panel -->
+            <div class="space-y-6">
+                <!-- Business Info -->
+                <div class="bg-gray-900/80 border border-gray-800 rounded-2xl p-6">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">🏢 Business Info</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-sm text-gray-400 block mb-1">Business Name</label>
+                            <input type="text" id="biz-name" value="" placeholder="Smith & Associates" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition" oninput="updatePreview()">
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-400 block mb-1">Industry Template</label>
+                            <select id="biz-template" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition" onchange="loadTemplate()">
+                                <option value="law">⚖️ Law Firm</option>
+                                <option value="freelance">💻 Freelancer / Consultant</option>
+                                <option value="agency">🏢 Marketing Agency</option>
+                                <option value="coaching">🧠 Coach / Therapist</option>
+                                <option value="realestate">🏠 Real Estate</option>
+                                <option value="healthcare">🏥 Healthcare / Wellness</option>
+                                <option value="saas">💡 SaaS / Tech</option>
+                                <option value="custom">🔧 Custom (blank)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-400 block mb-1">Bot Personality</label>
+                            <select id="biz-tone" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition" onchange="updatePreview()">
+                                <option value="professional">Professional & Warm</option>
+                                <option value="casual">Casual & Friendly</option>
+                                <option value="formal">Formal & Corporate</option>
+                                <option value="empathetic">Empathetic & Supportive</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-400 block mb-1">Welcome Message</label>
+                            <textarea id="biz-welcome" rows="2" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition resize-none" oninput="updatePreview()"></textarea>
+                        </div>
+                    </div>
+                </div>
 
-    function startDemo(type) {
-        currentFlow = type;
-        messageCount = 0;
-        const flow = flows[type];
-        
-        // Update tabs
-        document.querySelectorAll('.demo-tab').forEach(t => {
-            t.classList.remove('bg-indigo-600', 'text-white');
-            t.classList.add('bg-gray-800', 'text-gray-400');
-        });
-        document.querySelector(`[data-tab="${type}"]`).classList.remove('bg-gray-800', 'text-gray-400');
-        document.querySelector(`[data-tab="${type}"]`).classList.add('bg-indigo-600', 'text-white');
+                <!-- Question Builder -->
+                <div class="bg-gray-900/80 border border-gray-800 rounded-2xl p-6">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                        📋 Intake Questions
+                        <span class="text-xs text-gray-500 font-normal ml-auto" id="q-count">0 questions</span>
+                    </h3>
+                    <div id="question-list" class="space-y-3 mb-4"></div>
+                    <button onclick="addQuestion()" class="w-full py-2.5 border border-dashed border-gray-600 hover:border-indigo-500 rounded-xl text-sm text-gray-400 hover:text-indigo-400 transition">
+                        + Add Question
+                    </button>
+                </div>
 
-        document.getElementById('demo-title').textContent = flow.title;
-        const container = document.getElementById('demo-messages');
-        container.innerHTML = '';
+                <!-- Qualification Rules -->
+                <div class="bg-gray-900/80 border border-gray-800 rounded-2xl p-6">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">🎯 Qualification Rules</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" id="rule-budget" checked class="w-4 h-4 rounded bg-gray-800 border-gray-600 text-indigo-600 focus:ring-indigo-500">
+                            <span class="text-sm">Ask about budget/investment range</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" id="rule-timeline" checked class="w-4 h-4 rounded bg-gray-800 border-gray-600 text-indigo-600 focus:ring-indigo-500">
+                            <span class="text-sm">Ask about timeline/urgency</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" id="rule-contact" checked class="w-4 h-4 rounded bg-gray-800 border-gray-600 text-indigo-600 focus:ring-indigo-500">
+                            <span class="text-sm">Collect contact info (name, email, phone)</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" id="rule-booking" class="w-4 h-4 rounded bg-gray-800 border-gray-600 text-indigo-600 focus:ring-indigo-500">
+                            <span class="text-sm">Offer appointment booking at the end</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" id="rule-score" checked class="w-4 h-4 rounded bg-gray-800 border-gray-600 text-indigo-600 focus:ring-indigo-500">
+                            <span class="text-sm">Score lead quality (Hot / Warm / Cool)</span>
+                        </label>
+                    </div>
+                </div>
 
-        // Show initial messages
-        flow.messages.forEach((msg, i) => {
-            setTimeout(() => addMessage(msg.from, msg.text), i * 500);
-        });
-
-        // Show quick replies
-        setTimeout(() => {
-            const qr = document.getElementById('quick-replies');
-            qr.innerHTML = '';
-            if (flow.quickReplies) {
-                flow.quickReplies.forEach(text => {
-                    const btn = document.createElement('button');
-                    btn.className = 'px-3 py-1.5 bg-indigo-600/10 border border-indigo-500/30 rounded-lg text-xs text-indigo-400 hover:bg-indigo-600/20 transition';
-                    btn.textContent = text;
-                    btn.onclick = () => {
-                        document.getElementById('demo-input').value = text;
-                        sendDemoMessage();
-                    };
-                    qr.appendChild(btn);
-                });
-            }
-        }, flows[type].messages.length * 500 + 200);
-    }
-
-    function addMessage(from, text) {
-        const container = document.getElementById('demo-messages');
-        const div = document.createElement('div');
-        div.className = `flex ${from === 'bot' ? 'justify-start' : 'justify-end'} fade-in`;
-        div.style.animationDelay = '0.1s';
-        const bubbleClass = from === 'bot' 
-            ? 'chat-bubble-left bg-indigo-600/20 border border-indigo-500/20' 
-            : 'chat-bubble-right bg-gray-700/50';
-        div.innerHTML = `<div class="${bubbleClass} px-4 py-2.5 max-w-[80%]"><p class="text-sm" style="white-space:pre-line">${text}</p></div>`;
-        container.appendChild(div);
-        container.scrollTop = container.scrollHeight;
-    }
-
-    function showTyping() {
-        const container = document.getElementById('demo-messages');
-        const div = document.createElement('div');
-        div.className = 'flex justify-start';
-        div.id = 'typing-indicator';
-        div.innerHTML = `<div class="chat-bubble-left bg-indigo-600/20 border border-indigo-500/20 px-4 py-3">
-            <div class="typing-dots flex gap-1"><span class="w-2 h-2 bg-indigo-400 rounded-full"></span><span class="w-2 h-2 bg-indigo-400 rounded-full"></span><span class="w-2 h-2 bg-indigo-400 rounded-full"></span></div>
-        </div>`;
-        container.appendChild(div);
-        container.scrollTop = container.scrollHeight;
-    }
-
-    function removeTyping() {
-        const el = document.getElementById('typing-indicator');
-        if (el) el.remove();
-    }
-
-    function sendDemoMessage() {
-        const input = document.getElementById('demo-input');
-        const text = input.value.trim();
-        if (!text) return;
-        
-        input.value = '';
-        messageCount++;
-        addMessage('user', text);
-
-        // Clear quick replies
-        document.getElementById('quick-replies').innerHTML = '';
-
-        // Show typing then respond
-        setTimeout(() => showTyping(), 300);
-
-        const flow = flows[currentFlow];
-        const matchedResponses = flow.responses[text] || flow.responses._default;
-
-        setTimeout(() => {
-            removeTyping();
-            matchedResponses.forEach((msg, i) => {
-                setTimeout(() => addMessage(msg.from, msg.text), i * 600);
-            });
-
-            // After second user message, show summary
-            if (messageCount >= 2) {
-                const summaryDelay = matchedResponses.length * 600 + 1500;
-                setTimeout(() => {
-                    showTyping();
-                    setTimeout(() => {
-                        removeTyping();
-                        addMessage('bot', "✅ Perfect — I have everything I need! Here's what I've captured:\n\n📋 Contact: [your info]\n📝 Type: " + (currentFlow === 'law' ? 'Legal matter' : currentFlow === 'freelance' ? 'Design project' : currentFlow === 'agency' ? 'Agency services' : 'Coaching') + "\n📊 Priority: Medium\n📅 Next step: Book a call\n\nI'll send this summary to the team now. You'll hear back within 2 hours! 🚀");
-                    }, 1200);
-                }, summaryDelay);
-            }
-        }, 1200);
-    }
-
-    function submitWaitlist(e) {
-        e.preventDefault();
-        const email = document.getElementById('waitlist-email').value;
-        const type = document.getElementById('waitlist-type').value;
-        
-        // Store locally
-        const signups = JSON.parse(localStorage.getItem('intakebot_waitlist') || '[]');
-        signups.push({ email, type, timestamp: new Date().toISOString() });
-        localStorage.setItem('intakebot_waitlist', JSON.stringify(signups));
-        
-        // Show success
-        e.target.classList.add('hidden');
-        document.getElementById('waitlist-success').classList.remove('hidden');
-
-        // Update counter
-        updateCounter();
-    }
-
-    function updateCounter() {
-        const signups = JSON.parse(localStorage.getItem('intakebot_waitlist') || '[]');
-        // Base number + real signups for social proof
-        const total = 213 + signups.length;
-    }
-
-    // Init
-    startDemo('law');
-    updateCounter();
-    </script>
-
-    <!-- Cross-Promotion: OpenSphere Labs -->
-    <section class="py-16 border-t border-white/5">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-10">
-                <p class="text-sm text-gray-500 uppercase tracking-widest mb-2">Also from</p>
-                <a href="https://atalovesyou.github.io/opensphere-labs/" target="_blank" class="text-xl font-bold text-white hover:text-indigo-400 transition">OpenSphere Labs</a>
-                <p class="text-gray-400 text-sm mt-2">AI-powered micro-tools for freelancers &amp; small businesses</p>
+                <!-- Export -->
+                <div class="flex gap-3">
+                    <button onclick="saveBotConfig()" class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-sm font-semibold transition">💾 Save Bot Config</button>
+                    <button onclick="exportBotConfig()" class="flex-1 py-3 border border-gray-700 hover:border-gray-500 rounded-xl text-sm font-medium transition">📤 Export JSON</button>
+                </div>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <a href="https://atalovesyou.github.io/unslop-ai/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
-                    <div class="text-lg mb-1">🧹 UnSlop.ai</div>
-                    <div class="text-xs text-gray-400 group-hover:text-gray-300">AI slop detector & humanizer</div>
-                </a>
-                <a href="https://atalovesyou.github.io/immigranttax-ai/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
-                    <div class="text-lg mb-1">🌍 ImmigrantTax.ai</div>
-                    <div class="text-xs text-gray-400 group-hover:text-gray-300">Cross-border tax for immigrants</div>
-                </a>
-                <a href="https://atalovesyou.github.io/ghosttracker/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
-                    <div class="text-lg mb-1">👻 GhostTracker</div>
-                    <div class="text-xs text-gray-400 group-hover:text-gray-300">Proposal analytics for freelancers</div>
-                </a>
-                <a href="https://atalovesyou.github.io/reviewagent/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
-                    <div class="text-lg mb-1">⭐ ReviewAgent</div>
-                    <div class="text-xs text-gray-400 group-hover:text-gray-300">AI review management for SMBs</div>
-                </a>
-                <a href="https://atalovesyou.github.io/nameforge/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
-                    <div class="text-lg mb-1">✨ NameForge</div>
-                    <div class="text-xs text-gray-400 group-hover:text-gray-300">AI business name generator</div>
-                </a>
-                <a href="https://atalovesyou.github.io/contractpilot/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
-                    <div class="text-lg mb-1">📝 ContractPilot</div>
-                    <div class="text-xs text-gray-400 group-hover:text-gray-300">AI contracts for freelancers</div>
-                </a>
-            </div>
-                <a href="https://atalovesyou.github.io/invoicepilot/" target="_blank" class="glass rounded-xl p-4 hover:bg-white/5 transition group">
-                    <div class="text-lg mb-1">💰 InvoicePilot</div>
-                    <div class="text-xs text-gray-400 group-hover:text-gray-300">AI invoicing for freelancers</div>
-                </a>
-            <div class="text-center mt-8">
-                <a href="https://atalovesyou.github.io/opensphere-labs/" target="_blank" class="text-sm text-indigo-400 hover:text-indigo-300 transition">View all products →</a>
+
+            <!-- Live Preview -->
+            <div class="lg:sticky lg:top-24 lg:self-start">
+                <div class="bg-gray-950 border border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
+                    <div class="bg-gray-900 px-6 py-3 border-b border-gray-800 flex items-center gap-3">
+                        <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500/60"></div>
+                        <span class="text-sm text-gray-400 ml-2" id="preview-title">Client Intake</span>
+                        <button onclick="resetPreview()" class="ml-auto text-xs text-gray-500 hover:text-gray-300 transition">↻ Reset</button>
+                    </div>
+                    <div class="h-[420px] overflow-y-auto p-6 space-y-3" id="preview-messages"></div>
+                    <div class="border-t border-gray-800 px-6 py-4">
+                        <div class="flex gap-3">
+                            <input type="text" id="preview-input" placeholder="Type a response..." 
+                                class="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition"
+                                onkeydown="if(event.key==='Enter')sendPreviewMsg()">
+                            <button onclick="sendPreviewMsg()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-sm font-medium transition">Send</button>
+                        </div>
+                        <div class="flex gap-2 mt-3 flex-wrap" id="preview-quick-replies"></div>
+                    </div>
+                </div>
+                <div class="mt-4 bg-gray-900/50 border border-gray-800 rounded-xl p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-gray-500 uppercase tracking-wider">Extracted Data (Live)</span>
+                        <button onclick="copyExtractedData()" class="text-xs text-indigo-400 hover:text-indigo-300 transition">📋 Copy JSON</button>
+                    </div>
+                    <pre id="extracted-data" class="text-xs text-gray-400 font-mono overflow-auto max-h-40 bg-gray-950/50 rounded-lg p-3">{}</pre>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<!-- Interactive Demo -->
+<section id="demo" class="py-20 px-6">
+    <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-4">Try a pre-built bot</h2>
+        <p class="text-gray-400 text-center mb-10">Experience deep adaptive conversations across 8 industries.</p>
+        
+        <div class="flex justify-center gap-2 mb-8 flex-wrap">
+            <button onclick="startDemo('law')" class="demo-tab px-3 py-2 rounded-lg text-sm font-medium tab-active transition" data-tab="law">⚖️ Law</button>
+            <button onclick="startDemo('freelance')" class="demo-tab px-3 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 transition" data-tab="freelance">💻 Freelance</button>
+            <button onclick="startDemo('agency')" class="demo-tab px-3 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 transition" data-tab="agency">🏢 Agency</button>
+            <button onclick="startDemo('coaching')" class="demo-tab px-3 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 transition" data-tab="coaching">🧠 Coach</button>
+            <button onclick="startDemo('realestate')" class="demo-tab px-3 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 transition" data-tab="realestate">🏠 Real Estate</button>
+            <button onclick="startDemo('healthcare')" class="demo-tab px-3 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 transition" data-tab="healthcare">🏥 Healthcare</button>
+            <button onclick="startDemo('saas')" class="demo-tab px-3 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 transition" data-tab="saas">💡 SaaS</button>
+            <button onclick="startDemo('immigration')" class="demo-tab px-3 py-2 rounded-lg text-sm font-medium bg-gray-800 text-gray-400 hover:bg-gray-700 transition" data-tab="immigration">🌍 Immigration</button>
+        </div>
+
+        <div class="bg-gray-950 border border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
+            <div class="bg-gray-900 px-6 py-3 border-b border-gray-800 flex items-center gap-3">
+                <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500/60"></div>
+                <span class="text-sm text-gray-400 ml-2" id="demo-title">Smith & Associates — Client Intake</span>
+                <div class="ml-auto flex items-center gap-2">
+                    <span class="text-xs text-gray-500" id="demo-step">Step 1/6</span>
+                    <div class="w-20 h-1.5 bg-gray-700 rounded-full overflow-hidden"><div class="h-full bg-indigo-500 rounded-full transition-all duration-500" id="demo-progress" style="width:16%"></div></div>
+                </div>
+            </div>
+            <div class="h-[440px] overflow-y-auto p-6 space-y-3" id="demo-messages"></div>
+            <div class="border-t border-gray-800 px-6 py-4">
+                <div class="flex gap-3">
+                    <input type="text" id="demo-input" placeholder="Type a response..." 
+                        class="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 transition"
+                        onkeydown="if(event.key==='Enter')sendDemoMessage()">
+                    <button onclick="sendDemoMessage()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-sm font-medium transition">Send</button>
+                </div>
+                <div class="flex gap-2 mt-3 flex-wrap" id="demo-quick-replies"></div>
+            </div>
+        </div>
+
+        <!-- Demo Extracted Data -->
+        <div class="mt-4 grid grid-cols-2 gap-4">
+            <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-4">
+                <span class="text-xs text-gray-500 uppercase tracking-wider block mb-2">Lead Quality</span>
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full border-2 flex items-center justify-center text-lg font-bold" id="demo-lead-score-ring" style="border-color: #6b7280">
+                        <span id="demo-lead-score">—</span>
+                    </div>
+                    <div>
+                        <div class="text-sm font-semibold" id="demo-lead-label">Pending...</div>
+                        <div class="text-xs text-gray-500" id="demo-lead-reason">Complete the conversation</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-4">
+                <span class="text-xs text-gray-500 uppercase tracking-wider block mb-2">Extracted Data</span>
+                <div class="text-xs text-gray-400 space-y-1" id="demo-extracted-summary">
+                    <div class="text-gray-500 italic">Answers will appear here as you chat...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Dashboard -->
+<section id="dashboard" class="py-20 px-6 bg-gray-900/30">
+    <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-4">Intake Dashboard</h2>
+        <p class="text-gray-400 text-center mb-12">Track every conversation. See completion rates. Never lose a lead.</p>
+
+        <!-- Stats Row -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-gray-900/80 border border-gray-800 rounded-xl p-5 text-center">
+                <div class="text-3xl font-bold" id="stat-total">0</div>
+                <div class="text-xs text-gray-500 mt-1">Total Intakes</div>
+            </div>
+            <div class="bg-gray-900/80 border border-gray-800 rounded-xl p-5 text-center">
+                <div class="text-3xl font-bold text-green-400" id="stat-completed">0</div>
+                <div class="text-xs text-gray-500 mt-1">Completed</div>
+            </div>
+            <div class="bg-gray-900/80 border border-gray-800 rounded-xl p-5 text-center">
+                <div class="text-3xl font-bold text-yellow-400" id="stat-abandoned">0</div>
+                <div class="text-xs text-gray-500 mt-1">Abandoned</div>
+            </div>
+            <div class="bg-gray-900/80 border border-gray-800 rounded-xl p-5 text-center">
+                <div class="text-3xl font-bold text-indigo-400" id="stat-rate">—</div>
+                <div class="text-xs text-gray-500 mt-1">Completion Rate</div>
+            </div>
+        </div>
+
+        <!-- Lead Quality Distribution -->
+        <div class="grid md:grid-cols-3 gap-4 mb-8">
+            <div class="bg-gray-900/80 border border-gray-800 rounded-xl p-5">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-sm font-semibold">🔥 Hot Leads</span>
+                    <span class="text-lg font-bold text-orange-400" id="stat-hot">0</span>
+                </div>
+                <div class="w-full h-2 bg-gray-700 rounded-full"><div class="h-full bg-orange-400 rounded-full score-bar" id="bar-hot" style="width:0%"></div></div>
+            </div>
+            <div class="bg-gray-900/80 border border-gray-800 rounded-xl p-5">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-sm font-semibold">🌤️ Warm Leads</span>
+                    <span class="text-lg font-bold text-yellow-400" id="stat-warm">0</span>
+                </div>
+                <div class="w-full h-2 bg-gray-700 rounded-full"><div class="h-full bg-yellow-400 rounded-full score-bar" id="bar-warm" style="width:0%"></div></div>
+            </div>
+            <div class="bg-gray-900/80 border border-gray-800 rounded-xl p-5">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-sm font-semibold">❄️ Cool Leads</span>
+                    <span class="text-lg font-bold text-blue-400" id="stat-cool">0</span>
+                </div>
+                <div class="w-full h-2 bg-gray-700 rounded-full"><div class="h-full bg-blue-400 rounded-full score-bar" id="bar-cool" style="width:0%"></div></div>
+            </div>
+        </div>
+
+        <!-- Intake History -->
+        <div class="bg-gray-900/80 border border-gray-800 rounded-2xl overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-800 flex items-center justify-between">
+                <h3 class="font-semibold">Recent Intakes</h3>
+                <div class="flex gap-2">
+                    <button onclick="clearHistory()" class="text-xs text-gray-500 hover:text-red-400 transition">Clear All</button>
+                    <button onclick="exportHistory()" class="text-xs text-indigo-400 hover:text-indigo-300 transition">📤 Export CSV</button>
+                </div>
+            </div>
+            <div id="intake-history" class="divide-y divide-gray-800/50 max-h-96 overflow-y-auto">
+                <div class="px-6 py-8 text-center text-gray-500 text-sm">
+                    No intakes yet. Complete a demo conversation to see data here.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-4">Three steps to better intake</h2>
+        <p class="text-gray-400 text-center mb-16">Set up in 5 minutes. No coding required.</p>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-indigo-600/10 border border-indigo-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4"><span class="text-3xl">📝</span></div>
+                <h3 class="text-lg font-semibold mb-2">1. Build your bot</h3>
+                <p class="text-gray-400 text-sm">Pick a template, customize questions and tone. The builder shows a live preview as you configure.</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-indigo-600/10 border border-indigo-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4"><span class="text-3xl">🔗</span></div>
+                <h3 class="text-lg font-semibold mb-2">2. Embed or share</h3>
+                <p class="text-gray-400 text-sm">Drop a widget on your website with one line of code, or share a direct link. Works on any platform.</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-indigo-600/10 border border-indigo-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4"><span class="text-3xl">📊</span></div>
+                <h3 class="text-lg font-semibold mb-2">3. Get structured data</h3>
+                <p class="text-gray-400 text-sm">Every conversation extracts to JSON. See lead scores, completion rates, and intake history in the dashboard.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Widget CTA -->
+<section class="py-16 px-6">
+    <div class="max-w-3xl mx-auto text-center">
+        <div class="bg-gradient-to-br from-indigo-600/10 to-purple-600/10 border border-indigo-500/20 rounded-2xl p-10">
+            <span class="text-5xl mb-4 block">🔌</span>
+            <h2 class="text-2xl font-bold mb-3">One line of code. That's it.</h2>
+            <p class="text-gray-400 mb-6 max-w-lg mx-auto">See the embeddable widget running on a real page. Switch between templates.</p>
+            <a href="widget-demo.html" class="inline-block px-8 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-lg font-semibold transition shadow-lg shadow-indigo-600/25">Try the Widget Demo →</a>
+            <div class="mt-6 bg-gray-900/80 rounded-xl p-4 text-left max-w-md mx-auto">
+                <code class="text-sm text-gray-300">
+                    <span class="text-pink-400">&lt;script</span> <span class="text-sky-400">src</span>=<span class="text-green-400">"intakebot-widget.js"</span><br>
+                    &nbsp;&nbsp;<span class="text-sky-400">data-template</span>=<span class="text-green-400">"law"</span><br>
+                    &nbsp;&nbsp;<span class="text-sky-400">data-name</span>=<span class="text-green-400">"Smith & Associates"</span><span class="text-pink-400">&gt;&lt;/script&gt;</span>
+                </code>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Templates -->
+<section class="py-20 px-6 bg-gray-900/30">
+    <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-4">Templates for every business</h2>
+        <p class="text-gray-400 text-center mb-12">Pre-built intake flows with deep conversation trees.</p>
+        <div class="grid md:grid-cols-4 gap-4">
+            <div class="card-hover bg-gray-900/80 border border-gray-800 rounded-xl p-5">
+                <span class="text-2xl mb-2 block">⚖️</span>
+                <h3 class="font-semibold mb-1">Law Firm</h3>
+                <p class="text-gray-400 text-xs mb-2">Case type → urgency → prior counsel → budget → booking</p>
+                <div class="flex flex-wrap gap-1"><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Immigration</span><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Employment</span><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Family</span></div>
+            </div>
+            <div class="card-hover bg-gray-900/80 border border-gray-800 rounded-xl p-5">
+                <span class="text-2xl mb-2 block">💻</span>
+                <h3 class="font-semibold mb-1">Freelancer</h3>
+                <p class="text-gray-400 text-xs mb-2">Project type → scope → timeline → budget → examples</p>
+                <div class="flex flex-wrap gap-1"><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Design</span><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Dev</span><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Writing</span></div>
+            </div>
+            <div class="card-hover bg-gray-900/80 border border-gray-800 rounded-xl p-5">
+                <span class="text-2xl mb-2 block">🏢</span>
+                <h3 class="font-semibold mb-1">Agency</h3>
+                <p class="text-gray-400 text-xs mb-2">Service → current efforts → goals → budget → timeline</p>
+                <div class="flex flex-wrap gap-1"><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Marketing</span><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Creative</span><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">PR</span></div>
+            </div>
+            <div class="card-hover bg-gray-900/80 border border-gray-800 rounded-xl p-5">
+                <span class="text-2xl mb-2 block">🧠</span>
+                <h3 class="font-semibold mb-1">Coaching</h3>
+                <p class="text-gray-400 text-xs mb-2">Challenge → goals → readiness → commitment → fit</p>
+                <div class="flex flex-wrap gap-1"><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Life</span><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Business</span><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Career</span></div>
+            </div>
+            <div class="card-hover bg-gray-900/80 border border-gray-800 rounded-xl p-5">
+                <span class="text-2xl mb-2 block">🏠</span>
+                <h3 class="font-semibold mb-1">Real Estate</h3>
+                <p class="text-gray-400 text-xs mb-2">Buy/sell → location → budget → timeline → financing</p>
+                <div class="flex flex-wrap gap-1"><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Buyer</span><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Seller</span><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Investor</span></div>
+            </div>
+            <div class="card-hover bg-gray-900/80 border border-gray-800 rounded-xl p-5">
+                <span class="text-2xl mb-2 block">🏥</span>
+                <h3 class="font-semibold mb-1">Healthcare</h3>
+                <p class="text-gray-400 text-xs mb-2">Concern → symptoms → history → insurance → scheduling</p>
+                <div class="flex flex-wrap gap-1"><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Therapy</span><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Wellness</span><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Dental</span></div>
+            </div>
+            <div class="card-hover bg-gray-900/80 border border-gray-800 rounded-xl p-5">
+                <span class="text-2xl mb-2 block">💡</span>
+                <h3 class="font-semibold mb-1">SaaS</h3>
+                <p class="text-gray-400 text-xs mb-2">Use case → team size → current tools → budget → demo</p>
+                <div class="flex flex-wrap gap-1"><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">B2B</span><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Enterprise</span><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Startup</span></div>
+            </div>
+            <div class="card-hover bg-gray-900/80 border border-gray-800 rounded-xl p-5">
+                <span class="text-2xl mb-2 block">🌍</span>
+                <h3 class="font-semibold mb-1">Immigration</h3>
+                <p class="text-gray-400 text-xs mb-2">Visa type → country → status → timeline → documents</p>
+                <div class="flex flex-wrap gap-1"><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Work</span><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Family</span><span class="px-1.5 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">Student</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Comparison -->
+<section class="py-20 px-6">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-4">The $400/mo question</h2>
+        <p class="text-gray-400 text-center mb-12">Why pay enterprise prices for intake?</p>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead>
+                    <tr class="border-b border-gray-800">
+                        <th class="py-4 pr-4 text-sm font-semibold text-gray-400">Feature</th>
+                        <th class="py-4 px-4 text-sm font-semibold text-center"><span class="text-indigo-400">IntakeBot</span><br><span class="text-xs text-gray-500">$0-19/mo</span></th>
+                        <th class="py-4 px-4 text-sm font-semibold text-center">Lawmatics<br><span class="text-xs text-gray-500">$199-399/mo</span></th>
+                        <th class="py-4 px-4 text-sm font-semibold text-center">Smith.ai<br><span class="text-xs text-gray-500">$300-800/mo</span></th>
+                        <th class="py-4 px-4 text-sm font-semibold text-center">Google Forms<br><span class="text-xs text-gray-500">Free</span></th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm">
+                    <tr class="border-b border-gray-800/50"><td class="py-3 pr-4">Conversational AI</td><td class="py-3 px-4 text-center text-green-400">✅</td><td class="py-3 px-4 text-center text-yellow-400">⚠️</td><td class="py-3 px-4 text-center text-green-400">✅</td><td class="py-3 px-4 text-center text-red-400">❌</td></tr>
+                    <tr class="border-b border-gray-800/50"><td class="py-3 pr-4">Adaptive follow-ups</td><td class="py-3 px-4 text-center text-green-400">✅</td><td class="py-3 px-4 text-center text-yellow-400">⚠️</td><td class="py-3 px-4 text-center text-green-400">✅</td><td class="py-3 px-4 text-center text-red-400">❌</td></tr>
+                    <tr class="border-b border-gray-800/50"><td class="py-3 pr-4">Lead scoring</td><td class="py-3 px-4 text-center text-green-400">✅ Auto</td><td class="py-3 px-4 text-center text-green-400">✅</td><td class="py-3 px-4 text-center text-red-400">❌</td><td class="py-3 px-4 text-center text-red-400">❌</td></tr>
+                    <tr class="border-b border-gray-800/50"><td class="py-3 pr-4">Structured JSON output</td><td class="py-3 px-4 text-center text-green-400">✅</td><td class="py-3 px-4 text-center text-yellow-400">⚠️</td><td class="py-3 px-4 text-center text-red-400">❌</td><td class="py-3 px-4 text-center text-yellow-400">⚠️</td></tr>
+                    <tr class="border-b border-gray-800/50"><td class="py-3 pr-4">Embeddable widget</td><td class="py-3 px-4 text-center text-green-400">✅</td><td class="py-3 px-4 text-center text-green-400">✅</td><td class="py-3 px-4 text-center text-green-400">✅</td><td class="py-3 px-4 text-center text-yellow-400">⚠️</td></tr>
+                    <tr class="border-b border-gray-800/50"><td class="py-3 pr-4">Multilingual (50+)</td><td class="py-3 px-4 text-center text-green-400">✅</td><td class="py-3 px-4 text-center text-red-400">❌</td><td class="py-3 px-4 text-center text-yellow-400">⚠️</td><td class="py-3 px-4 text-center text-red-400">❌</td></tr>
+                    <tr class="border-b border-gray-800/50"><td class="py-3 pr-4">Intake analytics</td><td class="py-3 px-4 text-center text-green-400">✅</td><td class="py-3 px-4 text-center text-green-400">✅</td><td class="py-3 px-4 text-center text-yellow-400">⚠️</td><td class="py-3 px-4 text-center text-red-400">❌</td></tr>
+                    <tr><td class="py-3 pr-4 font-semibold">Price for 100 intakes/mo</td><td class="py-3 px-4 text-center text-green-400 font-bold">$9/mo</td><td class="py-3 px-4 text-center text-red-400 font-bold">$199/mo</td><td class="py-3 px-4 text-center text-red-400 font-bold">$500+/mo</td><td class="py-3 px-4 text-center text-gray-400">Free (no AI)</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing" class="py-20 px-6 bg-gray-900/30">
+    <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-4">Simple pricing. No surprises.</h2>
+        <p class="text-gray-400 text-center mb-12">Start free. Upgrade when you're ready.</p>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="card-hover bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
+                <h3 class="text-lg font-semibold mb-1">Free</h3>
+                <div class="flex items-baseline gap-1 mb-4"><span class="text-4xl font-bold">$0</span><span class="text-gray-500">/forever</span></div>
+                <ul class="space-y-2.5 text-sm text-gray-400 mb-8">
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 10 intakes/month</li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 1 intake bot</li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Conversational AI</li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Email summaries</li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Lead scoring</li>
+                </ul>
+                <button onclick="document.getElementById('waitlist-modal').classList.remove('hidden')" class="w-full py-2.5 border border-gray-700 hover:border-gray-500 rounded-xl text-sm font-medium transition">Join Waitlist</button>
+            </div>
+            <div class="card-hover bg-gray-900/50 border-2 border-indigo-500 rounded-2xl p-8 relative">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-indigo-600 rounded-full text-xs font-medium">Most Popular</div>
+                <h3 class="text-lg font-semibold mb-1">Pro</h3>
+                <div class="flex items-baseline gap-1 mb-4"><span class="text-4xl font-bold">$9</span><span class="text-gray-500">/month</span></div>
+                <ul class="space-y-2.5 text-sm text-gray-400 mb-8">
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 100 intakes/month</li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 5 intake bots</li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Custom branding</li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Webhooks & Zapier</li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Multilingual (50+)</li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Analytics dashboard</li>
+                </ul>
+                <button onclick="document.getElementById('waitlist-modal').classList.remove('hidden')" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-sm font-medium transition">Join Waitlist</button>
+            </div>
+            <div class="card-hover bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
+                <h3 class="text-lg font-semibold mb-1">Business</h3>
+                <div class="flex items-baseline gap-1 mb-4"><span class="text-4xl font-bold">$19</span><span class="text-gray-500">/month</span></div>
+                <ul class="space-y-2.5 text-sm text-gray-400 mb-8">
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 500 intakes/month</li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Unlimited bots</li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> API access</li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Team seats</li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Priority AI</li>
+                    <li class="flex items-center gap-2"><span class="text-green-400">✓</span> CRM integrations</li>
+                </ul>
+                <button onclick="document.getElementById('waitlist-modal').classList.remove('hidden')" class="w-full py-2.5 border border-gray-700 hover:border-gray-500 rounded-xl text-sm font-medium transition">Join Waitlist</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 px-6">
+    <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-4">Stop losing clients to boring forms</h2>
+        <p class="text-gray-400 text-lg mb-8">Join 200+ businesses on the waitlist. Be first when we launch.</p>
+        <button onclick="document.getElementById('waitlist-modal').classList.remove('hidden')" class="px-10 py-4 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-lg font-semibold transition shadow-lg shadow-indigo-600/25">Get Early Access — It's Free →</button>
+    </div>
+</section>
+
+<!-- Cross-Promotion -->
+<section class="py-16 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-10">
+            <p class="text-sm text-gray-500 uppercase tracking-widest mb-2">Part of the Freelancer Stack from</p>
+            <a href="https://atalovesyou.github.io/opensphere-labs/" target="_blank" class="text-xl font-bold text-white hover:text-indigo-400 transition">OpenSphere Labs</a>
+            <p class="text-gray-400 text-sm mt-2">IntakeBot → ProposalPilot → ContractPilot → GhostTracker → InvoicePilot → ReviewAgent</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <a href="https://atalovesyou.github.io/proposalpilot/" target="_blank" class="glass rounded-xl p-3 hover:bg-white/5 transition group"><div class="text-sm mb-0.5">📄 ProposalPilot</div><div class="text-[10px] text-gray-400">AI proposals in 90 seconds</div></a>
+            <a href="https://atalovesyou.github.io/contractpilot/" target="_blank" class="glass rounded-xl p-3 hover:bg-white/5 transition group"><div class="text-sm mb-0.5">📝 ContractPilot</div><div class="text-[10px] text-gray-400">AI contracts for freelancers</div></a>
+            <a href="https://atalovesyou.github.io/ghosttracker/" target="_blank" class="glass rounded-xl p-3 hover:bg-white/5 transition group"><div class="text-sm mb-0.5">👻 GhostTracker</div><div class="text-[10px] text-gray-400">Proposal analytics & tracking</div></a>
+            <a href="https://atalovesyou.github.io/invoicepilot/" target="_blank" class="glass rounded-xl p-3 hover:bg-white/5 transition group"><div class="text-sm mb-0.5">💰 InvoicePilot</div><div class="text-[10px] text-gray-400">AI invoicing & auto-chase</div></a>
+            <a href="https://atalovesyou.github.io/reviewagent/" target="_blank" class="glass rounded-xl p-3 hover:bg-white/5 transition group"><div class="text-sm mb-0.5">⭐ ReviewAgent</div><div class="text-[10px] text-gray-400">AI review management</div></a>
+            <a href="https://atalovesyou.github.io/unslop-ai/" target="_blank" class="glass rounded-xl p-3 hover:bg-white/5 transition group"><div class="text-sm mb-0.5">🧹 UnSlop.ai</div><div class="text-[10px] text-gray-400">AI slop detector & humanizer</div></a>
+            <a href="https://atalovesyou.github.io/immigranttax-ai/" target="_blank" class="glass rounded-xl p-3 hover:bg-white/5 transition group"><div class="text-sm mb-0.5">🌍 ImmigrantTax.ai</div><div class="text-[10px] text-gray-400">Cross-border tax analyzer</div></a>
+            <a href="https://atalovesyou.github.io/nameforge/" target="_blank" class="glass rounded-xl p-3 hover:bg-white/5 transition group"><div class="text-sm mb-0.5">✨ NameForge</div><div class="text-[10px] text-gray-400">AI business name generator</div></a>
+        </div>
+        <div class="text-center mt-6"><a href="https://atalovesyou.github.io/opensphere-labs/" target="_blank" class="text-sm text-indigo-400 hover:text-indigo-300 transition">View all products →</a></div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-8 px-6 border-t border-gray-800">
+    <div class="max-w-6xl mx-auto flex items-center justify-between text-sm text-gray-500">
+        <div class="flex items-center gap-2"><span>🤖</span><span>IntakeBot v2.0</span><span>·</span><span>by <a href="https://opensphere.ai" class="text-gray-400 hover:text-white transition">OpenSphere</a></span></div>
+        <span>© 2026</span>
+    </div>
+</footer>
+
+<!-- Waitlist Modal -->
+<div id="waitlist-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onclick="if(event.target===this)this.classList.add('hidden')">
+    <div class="bg-gray-900 border border-gray-700 rounded-2xl p-8 max-w-md w-full">
+        <h3 class="text-2xl font-bold mb-2">Join the waitlist</h3>
+        <p class="text-gray-400 text-sm mb-6">Be first to try IntakeBot. We'll notify you when it's ready.</p>
+        <form id="waitlist-form" action="https://formsubmit.co/atalashutosh@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="IntakeBot Waitlist Signup">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://atalovesyou.github.io/intakebot/">
+            <input type="text" name="_honey" style="display:none">
+            <input type="email" name="email" id="waitlist-email" placeholder="you@company.com" required class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 mb-3 text-sm focus:outline-none focus:border-indigo-500">
+            <select name="business_type" id="waitlist-type" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 mb-4 text-sm text-gray-400 focus:outline-none focus:border-indigo-500">
+                <option value="">What type of business?</option>
+                <option value="law">Law Firm</option>
+                <option value="freelance">Freelancer / Consultant</option>
+                <option value="agency">Agency</option>
+                <option value="coaching">Coach / Therapist</option>
+                <option value="realestate">Real Estate</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="saas">SaaS / Tech</option>
+                <option value="other">Other</option>
+            </select>
+            <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl font-semibold transition">Get Early Access</button>
+        </form>
+    </div>
+</div>
+
+<!-- Intake Detail Modal -->
+<div id="detail-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onclick="if(event.target===this)this.classList.add('hidden')">
+    <div class="bg-gray-900 border border-gray-700 rounded-2xl p-8 max-w-lg w-full max-h-[80vh] overflow-y-auto">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold">Intake Details</h3>
+            <button onclick="document.getElementById('detail-modal').classList.add('hidden')" class="text-gray-500 hover:text-white text-lg">✕</button>
+        </div>
+        <div id="detail-content"></div>
+    </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+// TEMPLATE DATABASE — Deep Conversation Trees
+// ═══════════════════════════════════════
+
+const TEMPLATES = {
+    law: {
+        name: "Smith & Associates",
+        icon: "⚖️",
+        title: "Smith & Associates — Client Intake",
+        welcome: "Hi! Welcome to Smith & Associates. I'm here to help you get started with a free consultation. What type of legal matter can we help with today?",
+        steps: [
+            { key: "case_type", question: null, quickReplies: ["Employment dispute", "Immigration case", "Personal injury", "Family law", "Business/contract", "Criminal defense", "Other"], followUp: {
+                "Employment dispute": "I'm sorry you're dealing with a workplace issue. Could you tell me more — is this about wrongful termination, unpaid wages, harassment, or discrimination?",
+                "Immigration case": "We handle many immigration matters. What do you need — visa applications, green card, asylum, deportation defense, or citizenship?",
+                "Personal injury": "I'm sorry you were hurt. Was this a car accident, slip and fall, medical malpractice, or workplace injury?",
+                "Family law": "Family matters can be stressful. Are you dealing with divorce, custody, child support, adoption, or something else?",
+                "Business/contract": "Business disputes can be complex. Is this about a contract breach, partnership dispute, intellectual property, or something else?",
+                "Criminal defense": "I understand this is a difficult time. What are the charges or allegations you're facing?",
+                "_default": "Thank you for sharing. Can you give me a brief description of your legal situation?"
+            }},
+            { key: "details", question: null },
+            { key: "urgency", question: "How urgent is this matter? Do you have any upcoming court dates or deadlines?", quickReplies: ["Very urgent — deadline soon", "Somewhat urgent", "Not urgent — planning ahead"] },
+            { key: "prior_counsel", question: "Have you consulted with another attorney about this matter?", quickReplies: ["No, this is my first consultation", "Yes, but looking for a second opinion", "Yes, but they couldn't help"] },
+            { key: "budget", question: "What's your general budget range for legal help? This helps us match you with the right service level.", quickReplies: ["Under $2,000", "$2,000 - $5,000", "$5,000 - $15,000", "$15,000+", "Not sure / need guidance"] },
+            { key: "contact", question: "Great — I have a good picture of your situation. To book your free 15-minute consultation, I just need your name and the best email to reach you." }
+        ],
+        fields: ["case_type", "case_subtype", "details", "urgency", "prior_counsel", "budget", "name", "email"]
+    },
+    freelance: {
+        name: "Jane Design Co",
+        icon: "💻",
+        title: "Jane Design Co — Project Inquiry",
+        welcome: "Hey there! 👋 Thanks for reaching out. I'd love to learn about your project. What are you looking for?",
+        steps: [
+            { key: "project_type", question: null, quickReplies: ["Brand identity", "Website design/dev", "App UI/UX", "Marketing materials", "Content/copywriting", "Not sure yet"], followUp: {
+                "Brand identity": "Love it! Do you have any existing brand assets (logo, colors, guidelines), or are we starting from scratch?",
+                "Website design/dev": "What kind of site? E-commerce, portfolio, SaaS landing page, corporate, or blog?",
+                "App UI/UX": "Exciting! Is this a new app from scratch or a redesign of an existing one? Mobile, web, or both?",
+                "Marketing materials": "What do you need — social media graphics, email templates, pitch decks, print materials, or a mix?",
+                "Content/copywriting": "What kind of content? Website copy, blog posts, email sequences, social media, or ad copy?",
+                "_default": "No worries! Tell me about your business and what problem you're trying to solve — I'll suggest the right approach."
+            }},
+            { key: "scope", question: null },
+            { key: "timeline", question: "What's your ideal timeline for this project?", quickReplies: ["ASAP — within 2 weeks", "1-2 months", "2-3 months", "Flexible / no rush"] },
+            { key: "budget", question: "What's your budget range? This helps me scope the right solution for you.", quickReplies: ["Under $1,000", "$1,000 - $5,000", "$5,000 - $15,000", "$15,000+", "Open to suggestions"] },
+            { key: "examples", question: "Any examples of work you love? Websites, brands, or designs that inspire you? Drop a link or describe the vibe." },
+            { key: "contact", question: "Awesome — I have a great sense of your project! Let me get your name and email so I can send you a custom proposal within 24 hours." }
+        ],
+        fields: ["project_type", "scope", "timeline", "budget", "inspiration", "name", "email"]
+    },
+    agency: {
+        name: "Acme Agency",
+        icon: "🏢",
+        title: "Acme Agency — Growth Inquiry",
+        welcome: "Welcome to Acme Agency! We help businesses grow through digital marketing, content, and strategy. What brings you here today?",
+        steps: [
+            { key: "service", question: null, quickReplies: ["Paid ads (PPC/Social)", "SEO & content marketing", "Social media management", "Full-funnel strategy", "Branding & creative", "Web development"], followUp: {
+                "Paid ads (PPC/Social)": "Smart — paid acquisition can move fast. Which platforms are you targeting? Google, Meta, LinkedIn, TikTok?",
+                "SEO & content marketing": "Great long-term play. Do you currently rank for any keywords, or are you starting from zero?",
+                "Social media management": "Which platforms matter most for your business? Instagram, LinkedIn, TikTok, Twitter/X?",
+                "Full-funnel strategy": "Love the holistic approach. What's your current biggest growth bottleneck — awareness, leads, or conversion?",
+                "_default": "Got it! Tell me more about what you're hoping to achieve and I'll route you to the right team."
+            }},
+            { key: "details", question: null },
+            { key: "current_state", question: "What are you currently doing for marketing? Any campaigns running or agencies involved?", quickReplies: ["Nothing yet — starting fresh", "Some in-house efforts", "Working with another agency", "Mix of in-house and agency"] },
+            { key: "goals", question: "What does success look like in 90 days? Revenue target, lead count, traffic goal?", quickReplies: ["2x leads", "50% more revenue", "10K monthly traffic", "Brand awareness / launch"] },
+            { key: "budget", question: "What's your monthly marketing budget (including ad spend)?", quickReplies: ["Under $2K/mo", "$2K - $5K/mo", "$5K - $15K/mo", "$15K+/mo"] },
+            { key: "contact", question: "Perfect — I'll have our growth strategist reach out within 24 hours with a custom plan. What's your name, company, and email?" }
+        ],
+        fields: ["service", "current_marketing", "goals", "budget", "company", "name", "email"]
+    },
+    coaching: {
+        name: "Peak Performance Coaching",
+        icon: "🧠",
+        title: "Peak Performance — Discovery",
+        welcome: "Hi! Welcome to Peak Performance Coaching. I'm here to help you figure out if coaching is right for you. What's your biggest challenge right now?",
+        steps: [
+            { key: "challenge", question: null, quickReplies: ["Career transition", "Leadership growth", "Work-life balance", "Starting a business", "Confidence & mindset", "Relationship / communication"], followUp: {
+                "Career transition": "Career changes can be exciting and scary. Are you leaving a job, pivoting industries, or re-entering the workforce?",
+                "Leadership growth": "Great — investing in leadership always pays off. Are you a new manager, mid-level, or executive level?",
+                "Starting a business": "Entrepreneurship! Have you started already, or are you still in the idea/planning phase?",
+                "_default": "Thank you for sharing that. Can you tell me a bit more about what this looks like in your daily life?"
+            }},
+            { key: "details", question: null },
+            { key: "goals", question: "If coaching worked perfectly, what would be different in your life 3 months from now?", quickReplies: ["Clear career direction", "Better work-life balance", "More confidence", "Business launched/growing", "Stronger relationships"] },
+            { key: "experience", question: "Have you worked with a coach or therapist before?", quickReplies: ["No, this is my first time", "Yes, had a good experience", "Yes, but it didn't click", "I've done therapy, not coaching"] },
+            { key: "commitment", question: "Coaching works best with consistent effort. How many hours per week can you commit to this work (sessions + homework)?", quickReplies: ["1-2 hours/week", "3-5 hours/week", "Whatever it takes", "Not sure yet"] },
+            { key: "contact", question: "You sound like a great fit! Let me book you a free 30-minute discovery call. What's your name, email, and preferred time?" }
+        ],
+        fields: ["challenge", "details", "goals", "prior_experience", "commitment", "name", "email"]
+    },
+    realestate: {
+        name: "Skyline Realty",
+        icon: "🏠",
+        title: "Skyline Realty — Property Inquiry",
+        welcome: "Welcome to Skyline Realty! 🏠 Whether you're buying, selling, or investing, I'm here to help. What are you looking for?",
+        steps: [
+            { key: "intent", question: null, quickReplies: ["Buying a home", "Selling my property", "Investment property", "Renting", "Just exploring"], followUp: {
+                "Buying a home": "Exciting! Are you a first-time buyer, or have you purchased before? And what area are you looking in?",
+                "Selling my property": "Let's get you top dollar. What type of property are you selling, and what's the general location?",
+                "Investment property": "Smart move! Are you looking for rental income, fix-and-flip, or commercial properties?",
+                "_default": "Great! Tell me more about what you're looking for and I'll match you with the right agent."
+            }},
+            { key: "details", question: null },
+            { key: "budget", question: "What's your budget range or target price?", quickReplies: ["Under $300K", "$300K - $500K", "$500K - $1M", "$1M+", "Need to figure this out"] },
+            { key: "timeline", question: "What's your timeline?", quickReplies: ["Ready now — ASAP", "Within 3 months", "6-12 months", "Just researching"] },
+            { key: "financing", question: "Do you have financing in place?", quickReplies: ["Pre-approved mortgage", "Working on pre-approval", "Cash buyer", "Need help with financing", "N/A — selling"] },
+            { key: "contact", question: "I'll connect you with our best agent for your needs. What's your name, email, and phone number?" }
+        ],
+        fields: ["intent", "property_details", "budget", "timeline", "financing", "name", "email", "phone"]
+    },
+    healthcare: {
+        name: "Harmony Wellness Center",
+        icon: "🏥",
+        title: "Harmony Wellness — New Patient Intake",
+        welcome: "Welcome to Harmony Wellness Center. 💚 I'm here to help you get started. Everything you share is confidential. What brings you in today?",
+        steps: [
+            { key: "concern", question: null, quickReplies: ["Mental health support", "Physical therapy", "Nutrition / weight management", "Chronic pain", "Wellness / preventive care", "Other"], followUp: {
+                "Mental health support": "Thank you for taking this step — it takes courage. Are you dealing with anxiety, depression, stress, relationship issues, or something else?",
+                "Physical therapy": "Let's get you feeling better. Is this for a recent injury, post-surgery recovery, chronic condition, or preventive care?",
+                "Nutrition / weight management": "Great goal! Are you looking for a full nutrition plan, weight management support, or help with a specific dietary condition?",
+                "_default": "Thank you for sharing. Can you tell me a bit more about what you're experiencing?"
+            }},
+            { key: "details", question: null },
+            { key: "history", question: "Have you received treatment for this concern before?", quickReplies: ["No, this is new", "Yes, currently in treatment elsewhere", "Yes, in the past", "Prefer not to say"] },
+            { key: "insurance", question: "Do you have health insurance? If so, which provider?", quickReplies: ["Yes — Blue Cross", "Yes — Aetna", "Yes — United", "Yes — other", "No insurance", "Prefer not to say"] },
+            { key: "scheduling", question: "What appointment times work best for you?", quickReplies: ["Mornings (8-12)", "Afternoons (12-5)", "Evenings (5-8)", "Weekends", "Flexible"] },
+            { key: "contact", question: "Wonderful. To schedule your first visit, I'll need your name, email, and phone number. Your information is kept strictly confidential." }
+        ],
+        fields: ["concern", "details", "treatment_history", "insurance", "scheduling_preference", "name", "email", "phone"]
+    },
+    saas: {
+        name: "CloudStack AI",
+        icon: "💡",
+        title: "CloudStack AI — Product Demo Request",
+        welcome: "Hey! 👋 Welcome to CloudStack AI. I'll help you figure out if we're the right fit. What's your biggest workflow challenge right now?",
+        steps: [
+            { key: "use_case", question: null, quickReplies: ["Automate repetitive tasks", "Better data analytics", "Team collaboration", "Customer support", "Process management", "Other"], followUp: {
+                "Automate repetitive tasks": "Automation is our bread and butter! Which tasks are eating the most time — data entry, reporting, email, approvals, or something else?",
+                "Better data analytics": "Data-driven decisions! Are you currently using any analytics tools, or starting from scratch?",
+                "Customer support": "We can definitely help there. What's your current support volume — tickets per month? And what tools are you using now?",
+                "_default": "Interesting use case! Tell me more about your current workflow and what's painful about it."
+            }},
+            { key: "details", question: null },
+            { key: "team_size", question: "How big is your team?", quickReplies: ["Just me / solopreneur", "2-10 people", "11-50 people", "51-200 people", "200+ people"] },
+            { key: "current_tools", question: "What tools are you currently using for this workflow? (Spreadsheets, specific software, custom-built, etc.)" },
+            { key: "budget", question: "What's your budget for a solution like this?", quickReplies: ["Free / bootstrap", "Under $50/mo", "$50-200/mo", "$200-1000/mo", "Enterprise budget"] },
+            { key: "contact", question: "Let me set up a personalized demo for you! What's your name, company name, and email?" }
+        ],
+        fields: ["use_case", "workflow_details", "team_size", "current_tools", "budget", "company", "name", "email"]
+    },
+    immigration: {
+        name: "Liberty Immigration Law",
+        icon: "🌍",
+        title: "Liberty Immigration — Case Assessment",
+        welcome: "Welcome to Liberty Immigration Law! 🌍 We help people navigate immigration from start to finish. What type of immigration matter can we help you with?",
+        steps: [
+            { key: "visa_type", question: null, quickReplies: ["Work visa (H-1B, L-1, O-1)", "Green card / permanent residency", "Family-based immigration", "Student visa (F-1, J-1)", "Asylum / refugee", "Citizenship / naturalization", "Deportation defense", "Other"], followUp: {
+                "Work visa (H-1B, L-1, O-1)": "Work visas are our specialty. Are you applying for a new visa, transferring employers, extending, or changing status?",
+                "Green card / permanent residency": "Great goal! Are you pursuing this through employment, family, diversity lottery, or investment (EB-5)?",
+                "Family-based immigration": "Family immigration can be complex. What's the relationship — spouse, parent, child, or sibling? And are they in the US or abroad?",
+                "Student visa (F-1, J-1)": "Academic path! Are you applying to study, already studying and need to extend/change status, or dealing with OPT/CPT?",
+                "Asylum / refugee": "I understand this may be a difficult situation. Are you currently in the US, or seeking to come to the US? And have you filed any applications yet?",
+                "Deportation defense": "This is urgent — we take these cases very seriously. Do you have a court date scheduled? When is it?",
+                "_default": "Thank you. Can you describe your immigration situation in a few sentences? I'll make sure we match you with the right attorney."
+            }},
+            { key: "details", question: null },
+            { key: "current_status", question: "What's your current immigration status?", quickReplies: ["US citizen", "Green card holder", "Work visa (H/L/O)", "Student visa (F/J)", "Tourist/visitor (B1/B2)", "Out of status", "Outside the US", "Other"] },
+            { key: "country", question: "What country are you a citizen of?" },
+            { key: "timeline", question: "How urgent is this? Any deadlines we should know about?", quickReplies: ["Very urgent — deadline within 30 days", "Urgent — within 3 months", "Planning ahead — 6+ months", "Just exploring options"] },
+            { key: "contact", question: "Let me connect you with one of our immigration attorneys for a free case evaluation. What's your full name, email, and phone number?" }
+        ],
+        fields: ["visa_type", "details", "current_status", "country_of_citizenship", "urgency", "name", "email", "phone"]
+    }
+};
+
+// ═══════════════════════════════════════
+// BOT BUILDER ENGINE
+// ═══════════════════════════════════════
+
+let builderQuestions = [];
+let builderStep = 0;
+let builderData = {};
+
+function loadTemplate() {
+    const t = document.getElementById('biz-template').value;
+    const template = TEMPLATES[t];
+    if (!template || t === 'custom') {
+        builderQuestions = [];
+        document.getElementById('biz-welcome').value = "Hi! Thanks for reaching out. I'd love to help you. What can I do for you today?";
+        renderQuestionList();
+        updatePreview();
+        return;
+    }
+    document.getElementById('biz-name').value = template.name;
+    document.getElementById('biz-welcome').value = template.welcome;
+    builderQuestions = template.steps.map((s, i) => ({
+        id: Date.now() + i,
+        key: s.key,
+        text: s.question || (i === 0 ? '(Auto: follows welcome message)' : '(Auto: follows previous answer)'),
+        quickReplies: s.quickReplies || [],
+        isAuto: !s.question || s.question === null
+    }));
+    renderQuestionList();
+    updatePreview();
+}
+
+function renderQuestionList() {
+    const list = document.getElementById('question-list');
+    list.innerHTML = '';
+    builderQuestions.forEach((q, i) => {
+        const div = document.createElement('div');
+        div.className = 'bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 slide-up';
+        div.innerHTML = `
+            <div class="flex items-start gap-3">
+                <span class="text-xs text-gray-500 mt-1 shrink-0">Q${i+1}</span>
+                <div class="flex-1 min-w-0">
+                    <input type="text" value="${q.text}" placeholder="Enter your question..." 
+                        class="w-full bg-transparent border-b border-gray-700 pb-1 text-sm focus:outline-none focus:border-indigo-500 transition ${q.isAuto ? 'text-gray-500 italic' : ''}"
+                        oninput="builderQuestions[${i}].text=this.value; builderQuestions[${i}].isAuto=false">
+                    ${q.quickReplies.length ? `<div class="flex flex-wrap gap-1 mt-2">${q.quickReplies.map(r => `<span class="px-2 py-0.5 bg-indigo-600/10 text-indigo-400 rounded text-[10px]">${r}</span>`).join('')}</div>` : ''}
+                </div>
+                <button onclick="removeQuestion(${i})" class="text-gray-600 hover:text-red-400 text-sm shrink-0">✕</button>
+            </div>
+        `;
+        list.appendChild(div);
+    });
+    document.getElementById('q-count').textContent = `${builderQuestions.length} questions`;
+}
+
+function addQuestion() {
+    builderQuestions.push({ id: Date.now(), key: `q${builderQuestions.length+1}`, text: '', quickReplies: [], isAuto: false });
+    renderQuestionList();
+}
+
+function removeQuestion(i) {
+    builderQuestions.splice(i, 1);
+    renderQuestionList();
+}
+
+function updatePreview() {
+    const title = document.getElementById('biz-name').value || 'Your Business';
+    document.getElementById('preview-title').textContent = `${title} — Client Intake`;
+    resetPreview();
+}
+
+function resetPreview() {
+    builderStep = 0;
+    builderData = {};
+    const container = document.getElementById('preview-messages');
+    container.innerHTML = '';
+    const welcome = document.getElementById('biz-welcome').value || 'Hi! How can I help you today?';
+    addMsg(container, 'bot', welcome);
+    if (builderQuestions[0]?.quickReplies?.length) {
+        showQuickReplies('preview-quick-replies', builderQuestions[0].quickReplies, sendPreviewMsg);
+    }
+    document.getElementById('extracted-data').textContent = JSON.stringify(builderData, null, 2);
+}
+
+function sendPreviewMsg() {
+    const input = document.getElementById('preview-input');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    const container = document.getElementById('preview-messages');
+    addMsg(container, 'user', text);
+    document.getElementById('preview-quick-replies').innerHTML = '';
+
+    // Store data
+    if (builderQuestions[builderStep]) {
+        builderData[builderQuestions[builderStep].key] = text;
+    }
+    builderStep++;
+
+    // Get next question
+    setTimeout(() => {
+        if (builderStep < builderQuestions.length) {
+            const q = builderQuestions[builderStep];
+            const qText = q.isAuto ? getFollowUp(builderStep, text) : q.text;
+            addMsg(container, 'bot', qText || "Tell me more about that.");
+            if (q.quickReplies?.length) {
+                showQuickReplies('preview-quick-replies', q.quickReplies, sendPreviewMsg);
+            }
+        } else {
+            // Completion summary
+            addMsg(container, 'bot', "✅ Thank you! I have everything I need.\n\n📋 Here's what I captured:\n" + Object.entries(builderData).map(([k,v]) => `• ${k}: ${v}`).join('\n') + "\n\n🚀 I'll send this to the team right away!");
+            builderData._completed = true;
+            builderData._completedAt = new Date().toISOString();
+            saveIntake(builderData, document.getElementById('biz-template').value);
+        }
+        document.getElementById('extracted-data').textContent = JSON.stringify(builderData, null, 2);
+    }, 600);
+}
+
+function getFollowUp(step, prevAnswer) {
+    const t = document.getElementById('biz-template').value;
+    const template = TEMPLATES[t];
+    if (!template) return "Tell me more about that.";
+    const s = template.steps[step];
+    if (!s) return "Anything else you'd like to add?";
+    if (s.question) return s.question;
+    if (s.followUp) return s.followUp[prevAnswer] || s.followUp._default || "Can you tell me more about that?";
+    return "Thanks for that. What else can you tell me?";
+}
+
+function saveBotConfig() {
+    const config = {
+        name: document.getElementById('biz-name').value,
+        template: document.getElementById('biz-template').value,
+        tone: document.getElementById('biz-tone').value,
+        welcome: document.getElementById('biz-welcome').value,
+        questions: builderQuestions,
+        rules: {
+            budget: document.getElementById('rule-budget').checked,
+            timeline: document.getElementById('rule-timeline').checked,
+            contact: document.getElementById('rule-contact').checked,
+            booking: document.getElementById('rule-booking').checked,
+            scoring: document.getElementById('rule-score').checked
+        },
+        savedAt: new Date().toISOString()
+    };
+    const configs = JSON.parse(localStorage.getItem('intakebot_configs') || '[]');
+    configs.push(config);
+    localStorage.setItem('intakebot_configs', JSON.stringify(configs));
+    alert('Bot config saved! 🎉');
+}
+
+function exportBotConfig() {
+    const config = {
+        name: document.getElementById('biz-name').value,
+        template: document.getElementById('biz-template').value,
+        tone: document.getElementById('biz-tone').value,
+        welcome: document.getElementById('biz-welcome').value,
+        questions: builderQuestions
+    };
+    const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `intakebot-${config.template}-config.json`;
+    a.click();
+}
+
+function copyExtractedData() {
+    navigator.clipboard.writeText(document.getElementById('extracted-data').textContent);
+    alert('Copied to clipboard! 📋');
+}
+
+// ═══════════════════════════════════════
+// DEMO ENGINE — Deep Adaptive Conversations
+// ═══════════════════════════════════════
+
+let demoFlow = null;
+let demoStep = 0;
+let demoData = {};
+let demoStartTime = 0;
+
+function startDemo(type) {
+    demoFlow = TEMPLATES[type];
+    demoStep = 0;
+    demoData = { _template: type };
+    demoStartTime = Date.now();
+
+    // Update tabs
+    document.querySelectorAll('.demo-tab').forEach(t => {
+        t.classList.remove('tab-active');
+        t.classList.add('bg-gray-800', 'text-gray-400');
+    });
+    const active = document.querySelector(`[data-tab="${type}"]`);
+    if (active) { active.classList.add('tab-active'); active.classList.remove('bg-gray-800', 'text-gray-400'); }
+
+    document.getElementById('demo-title').textContent = demoFlow.title;
+    const container = document.getElementById('demo-messages');
+    container.innerHTML = '';
+    updateDemoProgress();
+    resetDemoScoring();
+
+    addMsg(container, 'bot', demoFlow.welcome);
+    if (demoFlow.steps[0]?.quickReplies?.length) {
+        showQuickReplies('demo-quick-replies', demoFlow.steps[0].quickReplies, sendDemoMessage);
+    }
+}
+
+function sendDemoMessage() {
+    const input = document.getElementById('demo-input');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    const container = document.getElementById('demo-messages');
+    addMsg(container, 'user', text);
+    document.getElementById('demo-quick-replies').innerHTML = '';
+
+    const step = demoFlow.steps[demoStep];
+    if (step) {
+        demoData[step.key] = text;
+    }
+    demoStep++;
+    updateDemoProgress();
+    updateDemoExtracted();
+
+    // Show typing then respond
+    setTimeout(() => {
+        showTypingIndicator(container);
+        setTimeout(() => {
+            removeTypingIndicator(container);
+            if (demoStep < demoFlow.steps.length) {
+                const nextStep = demoFlow.steps[demoStep];
+                let response;
+                if (nextStep.question) {
+                    response = nextStep.question;
+                } else if (demoStep === 1 && demoFlow.steps[0]?.followUp) {
+                    response = demoFlow.steps[0].followUp[text] || demoFlow.steps[0].followUp._default || "Tell me more about that.";
+                } else {
+                    response = "Thanks for sharing that. " + (nextStep.quickReplies?.length ? "Let me ask you:" : "Can you tell me more?");
+                }
+                addMsg(container, 'bot', response);
+                if (nextStep.quickReplies?.length) {
+                    showQuickReplies('demo-quick-replies', nextStep.quickReplies, sendDemoMessage);
+                }
+            } else {
+                // Conversation complete
+                const duration = Math.round((Date.now() - demoStartTime) / 1000);
+                const leadScore = scoreLead(demoData);
+                demoData._completed = true;
+                demoData._completedAt = new Date().toISOString();
+                demoData._duration = duration;
+                demoData._leadScore = leadScore;
+
+                addMsg(container, 'bot', `✅ Perfect — I have everything I need!\n\n📋 Intake Summary:\n${Object.entries(demoData).filter(([k]) => !k.startsWith('_')).map(([k,v]) => `• ${formatKey(k)}: ${v}`).join('\n')}\n\n⏱️ Completed in ${duration}s\n🎯 Lead Score: ${leadScore.label} (${leadScore.score}/100)\n\n🚀 Summary sent to the team. You'll hear back within 2 hours!`);
+
+                updateDemoScoring(leadScore);
+                saveIntake(demoData, demoData._template);
+                updateDashboard();
+            }
+            updateDemoExtracted();
+        }, 800 + Math.random() * 400);
+    }, 300);
+}
+
+function updateDemoProgress() {
+    const total = demoFlow ? demoFlow.steps.length : 1;
+    const current = Math.min(demoStep + 1, total);
+    document.getElementById('demo-step').textContent = `Step ${current}/${total}`;
+    document.getElementById('demo-progress').style.width = `${(current / total) * 100}%`;
+}
+
+function updateDemoExtracted() {
+    const el = document.getElementById('demo-extracted-summary');
+    const entries = Object.entries(demoData).filter(([k]) => !k.startsWith('_'));
+    if (entries.length === 0) {
+        el.innerHTML = '<div class="text-gray-500 italic">Answers will appear here as you chat...</div>';
+    } else {
+        el.innerHTML = entries.map(([k, v]) => `<div><span class="text-gray-500">${formatKey(k)}:</span> <span class="text-gray-300">${v.length > 40 ? v.slice(0,40)+'...' : v}</span></div>`).join('');
+    }
+}
+
+function resetDemoScoring() {
+    document.getElementById('demo-lead-score').textContent = '—';
+    document.getElementById('demo-lead-label').textContent = 'Pending...';
+    document.getElementById('demo-lead-reason').textContent = 'Complete the conversation';
+    document.getElementById('demo-lead-score-ring').style.borderColor = '#6b7280';
+}
+
+function updateDemoScoring(score) {
+    document.getElementById('demo-lead-score').textContent = score.score;
+    document.getElementById('demo-lead-label').textContent = score.label;
+    document.getElementById('demo-lead-reason').textContent = score.reason;
+    document.getElementById('demo-lead-score-ring').style.borderColor = score.color;
+    document.getElementById('demo-lead-score-ring').classList.add('ring-pulse');
+}
+
+// ═══════════════════════════════════════
+// LEAD SCORING ENGINE
+// ═══════════════════════════════════════
+
+function scoreLead(data) {
+    let score = 50; // Base score for completing intake
+    let factors = [];
+
+    // Budget signals
+    const budgetVal = (data.budget || '').toLowerCase();
+    if (budgetVal.includes('15k') || budgetVal.includes('15,000') || budgetVal.includes('enterprise') || budgetVal.includes('1m') || budgetVal.includes('$1,000')) { score += 25; factors.push('High budget'); }
+    else if (budgetVal.includes('5k') || budgetVal.includes('5,000') || budgetVal.includes('200')) { score += 15; factors.push('Medium budget'); }
+    else if (budgetVal.includes('free') || budgetVal.includes('under $1') || budgetVal.includes('bootstrap')) { score -= 10; factors.push('Low budget'); }
+
+    // Urgency signals
+    const urgency = (data.urgency || data.timeline || '').toLowerCase();
+    if (urgency.includes('asap') || urgency.includes('urgent') || urgency.includes('deadline') || urgency.includes('ready now')) { score += 20; factors.push('High urgency'); }
+    else if (urgency.includes('research') || urgency.includes('exploring') || urgency.includes('flexible')) { score -= 5; factors.push('Low urgency'); }
+
+    // Prior experience / sophistication
+    const prior = (data.prior_counsel || data.experience || data.current_state || '').toLowerCase();
+    if (prior.includes('second opinion') || prior.includes('another agency')) { score += 10; factors.push('Shopping around'); }
+
+    // Completeness bonus
+    const filledFields = Object.keys(data).filter(k => !k.startsWith('_') && data[k]).length;
+    if (filledFields >= 5) { score += 10; factors.push('Detailed answers'); }
+
+    // Contact info
+    if (data.contact && (data.contact.includes('@') || data.contact.match(/\d{10}/))) { score += 5; factors.push('Shared contact'); }
+
+    score = Math.max(0, Math.min(100, score));
+
+    if (score >= 75) return { score, label: '🔥 Hot Lead', reason: factors.slice(0,2).join(', ') || 'Strong signals', color: '#f97316', tier: 'hot' };
+    if (score >= 50) return { score, label: '🌤️ Warm Lead', reason: factors.slice(0,2).join(', ') || 'Moderate signals', color: '#eab308', tier: 'warm' };
+    return { score, label: '❄️ Cool Lead', reason: factors.slice(0,2).join(', ') || 'Needs nurturing', color: '#3b82f6', tier: 'cool' };
+}
+
+// ═══════════════════════════════════════
+// INTAKE HISTORY & DASHBOARD
+// ═══════════════════════════════════════
+
+function saveIntake(data, template) {
+    const intakes = JSON.parse(localStorage.getItem('intakebot_intakes') || '[]');
+    intakes.unshift({
+        ...data,
+        _id: Date.now(),
+        _template: template,
+        _savedAt: new Date().toISOString()
+    });
+    if (intakes.length > 100) intakes.length = 100;
+    localStorage.setItem('intakebot_intakes', JSON.stringify(intakes));
+    updateDashboard();
+}
+
+function updateDashboard() {
+    const intakes = JSON.parse(localStorage.getItem('intakebot_intakes') || '[]');
+    const completed = intakes.filter(i => i._completed);
+    const abandoned = intakes.filter(i => !i._completed);
+    const hot = completed.filter(i => i._leadScore?.tier === 'hot');
+    const warm = completed.filter(i => i._leadScore?.tier === 'warm');
+    const cool = completed.filter(i => i._leadScore?.tier === 'cool' || !i._leadScore);
+
+    document.getElementById('stat-total').textContent = intakes.length;
+    document.getElementById('stat-completed').textContent = completed.length;
+    document.getElementById('stat-abandoned').textContent = abandoned.length;
+    document.getElementById('stat-rate').textContent = intakes.length ? Math.round((completed.length / intakes.length) * 100) + '%' : '—';
+    document.getElementById('stat-hot').textContent = hot.length;
+    document.getElementById('stat-warm').textContent = warm.length;
+    document.getElementById('stat-cool').textContent = cool.length;
+
+    const total = Math.max(completed.length, 1);
+    document.getElementById('bar-hot').style.width = `${(hot.length / total) * 100}%`;
+    document.getElementById('bar-warm').style.width = `${(warm.length / total) * 100}%`;
+    document.getElementById('bar-cool').style.width = `${(cool.length / total) * 100}%`;
+
+    // Render history
+    const hist = document.getElementById('intake-history');
+    if (intakes.length === 0) {
+        hist.innerHTML = '<div class="px-6 py-8 text-center text-gray-500 text-sm">No intakes yet. Complete a demo conversation to see data here.</div>';
+        return;
+    }
+    hist.innerHTML = intakes.slice(0, 20).map(intake => {
+        const template = TEMPLATES[intake._template];
+        const icon = template?.icon || '📋';
+        const name = intake.contact || intake.name || 'Anonymous';
+        const date = intake._savedAt ? new Date(intake._savedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
+        const score = intake._leadScore;
+        const scoreHtml = score ? `<span class="text-xs px-2 py-0.5 rounded-full" style="background:${score.color}20;color:${score.color}">${score.label}</span>` : '<span class="text-xs text-gray-500">N/A</span>';
+        const status = intake._completed ? '<span class="text-xs text-green-400">✅ Complete</span>' : '<span class="text-xs text-yellow-400">⚠️ Abandoned</span>';
+        return `<div class="px-6 py-4 flex items-center gap-4 hover:bg-gray-800/30 transition cursor-pointer" onclick="showIntakeDetail(${intake._id})">
+            <span class="text-xl">${icon}</span>
+            <div class="flex-1 min-w-0">
+                <div class="text-sm font-medium truncate">${name}</div>
+                <div class="text-xs text-gray-500">${intake._template || 'unknown'} · ${date}</div>
+            </div>
+            <div class="text-right shrink-0">
+                ${scoreHtml}
+                <div class="mt-1">${status}</div>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function showIntakeDetail(id) {
+    const intakes = JSON.parse(localStorage.getItem('intakebot_intakes') || '[]');
+    const intake = intakes.find(i => i._id === id);
+    if (!intake) return;
+
+    const content = document.getElementById('detail-content');
+    const entries = Object.entries(intake).filter(([k]) => !k.startsWith('_'));
+    const score = intake._leadScore;
+
+    content.innerHTML = `
+        <div class="space-y-4">
+            ${score ? `<div class="flex items-center gap-3 p-3 rounded-xl" style="background:${score.color}10;border:1px solid ${score.color}30">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold" style="border:2px solid ${score.color}">${score.score}</div>
+                <div><div class="font-semibold">${score.label}</div><div class="text-xs text-gray-400">${score.reason}</div></div>
+            </div>` : ''}
+            <div class="text-xs text-gray-500">
+                Template: ${intake._template || 'N/A'} · Duration: ${intake._duration ? intake._duration + 's' : 'N/A'} · ${intake._savedAt ? new Date(intake._savedAt).toLocaleString() : ''}
+            </div>
+            <div class="space-y-2">
+                ${entries.map(([k, v]) => `<div class="bg-gray-800/50 rounded-lg p-3">
+                    <div class="text-xs text-gray-500 mb-1">${formatKey(k)}</div>
+                    <div class="text-sm">${v}</div>
+                </div>`).join('')}
+            </div>
+            <div class="flex gap-2">
+                <button onclick="copyIntakeJSON(${id})" class="flex-1 py-2 bg-indigo-600/20 text-indigo-400 rounded-lg text-sm hover:bg-indigo-600/30 transition">📋 Copy JSON</button>
+                <button onclick="copyIntakeEmail(${id})" class="flex-1 py-2 bg-green-600/20 text-green-400 rounded-lg text-sm hover:bg-green-600/30 transition">📧 Copy as Email</button>
+            </div>
+        </div>
+    `;
+    document.getElementById('detail-modal').classList.remove('hidden');
+}
+
+function copyIntakeJSON(id) {
+    const intakes = JSON.parse(localStorage.getItem('intakebot_intakes') || '[]');
+    const intake = intakes.find(i => i._id === id);
+    if (intake) {
+        navigator.clipboard.writeText(JSON.stringify(intake, null, 2));
+        alert('JSON copied! 📋');
+    }
+}
+
+function copyIntakeEmail(id) {
+    const intakes = JSON.parse(localStorage.getItem('intakebot_intakes') || '[]');
+    const intake = intakes.find(i => i._id === id);
+    if (!intake) return;
+    const entries = Object.entries(intake).filter(([k]) => !k.startsWith('_'));
+    const score = intake._leadScore;
+    const email = `New Intake from IntakeBot\n${'='.repeat(30)}\n\n${score ? `Lead Score: ${score.label} (${score.score}/100)\n\n` : ''}${entries.map(([k,v]) => `${formatKey(k)}: ${v}`).join('\n')}\n\n---\nCaptured via IntakeBot · ${intake._savedAt ? new Date(intake._savedAt).toLocaleString() : ''}`;
+    navigator.clipboard.writeText(email);
+    alert('Email text copied! 📧');
+}
+
+function clearHistory() {
+    if (confirm('Clear all intake history? This cannot be undone.')) {
+        localStorage.removeItem('intakebot_intakes');
+        updateDashboard();
+    }
+}
+
+function exportHistory() {
+    const intakes = JSON.parse(localStorage.getItem('intakebot_intakes') || '[]');
+    if (!intakes.length) { alert('No intakes to export'); return; }
+    const allKeys = [...new Set(intakes.flatMap(i => Object.keys(i).filter(k => !k.startsWith('_'))))];
+    const metaKeys = ['_template', '_completed', '_duration', '_leadScore'];
+    const headers = [...allKeys, 'template', 'completed', 'duration_s', 'lead_score', 'lead_tier', 'date'];
+    const rows = intakes.map(i => {
+        const vals = allKeys.map(k => `"${(i[k] || '').replace(/"/g, '""')}"`);
+        vals.push(`"${i._template||''}"`, i._completed ? 'yes' : 'no', i._duration || '', i._leadScore?.score || '', `"${i._leadScore?.tier||''}"`, `"${i._savedAt||''}"`);
+        return vals.join(',');
+    });
+    const csv = headers.join(',') + '\n' + rows.join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `intakebot-export-${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+}
+
+// ═══════════════════════════════════════
+// SHARED UTILITIES
+// ═══════════════════════════════════════
+
+function addMsg(container, from, text) {
+    const div = document.createElement('div');
+    div.className = `flex ${from === 'bot' ? 'justify-start' : 'justify-end'} fade-in`;
+    const bubbleClass = from === 'bot' ? 'chat-bubble-left bg-indigo-600/20 border border-indigo-500/20' : 'chat-bubble-right bg-gray-700/50';
+    div.innerHTML = `<div class="${bubbleClass} px-4 py-2.5 max-w-[80%]"><p class="text-sm" style="white-space:pre-line">${escapeHtml(text)}</p></div>`;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+}
+
+function escapeHtml(t) { return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function showQuickReplies(containerId, replies, sendFn) {
+    const el = document.getElementById(containerId);
+    el.innerHTML = '';
+    replies.forEach(text => {
+        const btn = document.createElement('button');
+        btn.className = 'px-3 py-1.5 bg-indigo-600/10 border border-indigo-500/30 rounded-lg text-xs text-indigo-400 hover:bg-indigo-600/20 transition';
+        btn.textContent = text;
+        btn.onclick = () => {
+            const inputId = containerId.includes('preview') ? 'preview-input' : 'demo-input';
+            document.getElementById(inputId).value = text;
+            sendFn();
+        };
+        el.appendChild(btn);
+    });
+}
+
+function showTypingIndicator(container) {
+    const div = document.createElement('div');
+    div.className = 'flex justify-start';
+    div.id = 'typing-' + container.id;
+    div.innerHTML = `<div class="chat-bubble-left bg-indigo-600/20 border border-indigo-500/20 px-4 py-3"><div class="typing-dots flex gap-1"><span class="w-2 h-2 bg-indigo-400 rounded-full"></span><span class="w-2 h-2 bg-indigo-400 rounded-full"></span><span class="w-2 h-2 bg-indigo-400 rounded-full"></span></div></div>`;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+}
+
+function removeTypingIndicator(container) {
+    const el = document.getElementById('typing-' + container.id);
+    if (el) el.remove();
+}
+
+function formatKey(key) {
+    return key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+
+loadTemplate();
+startDemo('law');
+updateDashboard();
+</script>
+
+<!-- GoatCounter analytics -->
+<script data-goatcounter="https://opensphere.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
 </body>
 </html>
